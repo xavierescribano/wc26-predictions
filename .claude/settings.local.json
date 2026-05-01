@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(export PATH=\"$PATH:/opt/homebrew/bin\")",
+      "Bash(npm install *)",
+      "Bash(npx prisma *)",
+      "Bash(grep -E '\\\\.\\(ts|tsx|js|json|prisma\\)$')",
+      "Bash(npx tsc *)",
+      "Bash(/Users/XESCRIBANOS/WC26/node_modules/.bin/tsc --noEmit)",
+      "Bash(./node_modules/.bin/tsc --noEmit --skipLibCheck)",
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/XESCRIBANOS/.nvm/versions/**)",
+      "Bash(/opt/homebrew/bin/node /Users/XESCRIBANOS/WC26/node_modules/.bin/tsc --noEmit)",
+      "Bash(/opt/homebrew/bin/node /Users/XESCRIBANOS/WC26/node_modules/typescript/bin/tsc --noEmit --project /Users/XESCRIBANOS/WC26/tsconfig.json)",
+      "Bash(/usr/local/bin/node /Users/XESCRIBANOS/WC26/node_modules/.bin/tsc --noEmit --skipLibCheck)",
+      "Read(//opt/homebrew/Cellar/node/25.9.0_3/**)",
+      "Bash(/opt/homebrew/opt/node/bin/node --version)",
+      "Bash(/opt/homebrew/opt/node/bin/node node_modules/.bin/tsc --noEmit --skipLibCheck)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(node node_modules/typescript/bin/tsc --noEmit)",
+      "Bash(gh auth *)",
+      "Bash(brew install *)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}
