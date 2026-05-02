@@ -21,7 +21,7 @@ export function AdminPhaseToggle({ phaseId, phaseType, isOpen }: AdminPhaseToggl
       const res = await fetch("/api/admin/phases", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phaseId, isOpen: !isOpen }),
+        body: JSON.stringify({ phaseType, action: isOpen ? "close" : "open" }),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
