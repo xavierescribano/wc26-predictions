@@ -5,6 +5,7 @@ import { AdminPhaseToggle } from "@/components/admin/AdminPhaseToggle";
 import { AdminInviteForm } from "@/components/admin/AdminInviteForm";
 import { AdminResultForm } from "@/components/admin/AdminResultForm";
 import { AdminGroupResultForm } from "@/components/admin/AdminGroupResultForm";
+import { AdminResetButton } from "@/components/admin/AdminResetButton";
 
 const PHASE_LABELS: Record<string, string> = {
   GROUP_STAGE: "Group Stage",
@@ -72,9 +73,12 @@ export default async function AdminPage() {
   return (
     <div className="space-y-10">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-white">Admin Panel</h1>
-        <p className="text-slate-400 mt-1">Manage phases, invite players, enter results</p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">Admin Panel</h1>
+          <p className="text-slate-400 mt-1">Manage phases, invite players, enter results</p>
+        </div>
+        <AdminResetButton />
       </div>
 
       {/* ── Section 1: Phase Management ── */}
