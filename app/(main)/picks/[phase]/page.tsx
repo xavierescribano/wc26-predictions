@@ -105,7 +105,6 @@ export default async function KnockoutPicksPage({ params }: PageProps) {
         </div>
       ) : (
         <KnockoutPickGrid
-          phase={phase}
           matches={phase.matches}
           userPicks={userPicks}
           isOpen={isOpen}
