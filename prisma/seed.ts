@@ -5,129 +5,65 @@ const prisma = new PrismaClient();
 
 const TEAMS: { name: string; shortCode: string; group: string; flagEmoji: string }[] = [
   // Group A
-  { name: "Spain", shortCode: "ESP", group: "A", flagEmoji: "🇪🇸" },
-  { name: "United States", shortCode: "USA", group: "A", flagEmoji: "🇺🇸" },
-  { name: "Argentina", shortCode: "ARG", group: "A", flagEmoji: "🇦🇷" },
-  { name: "Morocco", shortCode: "MAR", group: "A", flagEmoji: "🇲🇦" },
+  { name: "Mexico", shortCode: "MEX", group: "A", flagEmoji: "🇲🇽" },
+  { name: "South Africa", shortCode: "RSA", group: "A", flagEmoji: "🇿🇦" },
+  { name: "South Korea", shortCode: "KOR", group: "A", flagEmoji: "🇰🇷" },
+  { name: "Czech Republic", shortCode: "CZE", group: "A", flagEmoji: "🇨🇿" },
   // Group B
-  { name: "France", shortCode: "FRA", group: "B", flagEmoji: "🇫🇷" },
-  { name: "Mexico", shortCode: "MEX", group: "B", flagEmoji: "🇲🇽" },
-  { name: "South Korea", shortCode: "KOR", group: "B", flagEmoji: "🇰🇷" },
-  { name: "DR Congo", shortCode: "COD", group: "B", flagEmoji: "🇨🇩" },
+  { name: "Canada", shortCode: "CAN", group: "B", flagEmoji: "🇨🇦" },
+  { name: "Bosnia and Herzegovina", shortCode: "BIH", group: "B", flagEmoji: "🇧🇦" },
+  { name: "Qatar", shortCode: "QAT", group: "B", flagEmoji: "🇶🇦" },
+  { name: "Switzerland", shortCode: "SUI", group: "B", flagEmoji: "🇨🇭" },
   // Group C
-  { name: "England", shortCode: "ENG", group: "C", flagEmoji: "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
-  { name: "Canada", shortCode: "CAN", group: "C", flagEmoji: "🇨🇦" },
-  { name: "Saudi Arabia", shortCode: "KSA", group: "C", flagEmoji: "🇸🇦" },
-  { name: "South Africa", shortCode: "RSA", group: "C", flagEmoji: "🇿🇦" },
+  { name: "Brazil", shortCode: "BRA", group: "C", flagEmoji: "🇧🇷" },
+  { name: "Morocco", shortCode: "MAR", group: "C", flagEmoji: "🇲🇦" },
+  { name: "Haiti", shortCode: "HAI", group: "C", flagEmoji: "🇭🇹" },
+  { name: "Scotland", shortCode: "SCO", group: "C", flagEmoji: "🏴󠁧󠁢󠁳󠁣󠁴󠁿" },
   // Group D
-  { name: "Germany", shortCode: "GER", group: "D", flagEmoji: "🇩🇪" },
-  { name: "Brazil", shortCode: "BRA", group: "D", flagEmoji: "🇧🇷" },
-  { name: "Japan", shortCode: "JPN", group: "D", flagEmoji: "🇯🇵" },
-  { name: "Tunisia", shortCode: "TUN", group: "D", flagEmoji: "🇹🇳" },
+  { name: "United States", shortCode: "USA", group: "D", flagEmoji: "🇺🇸" },
+  { name: "Paraguay", shortCode: "PAR", group: "D", flagEmoji: "🇵🇾" },
+  { name: "Australia", shortCode: "AUS", group: "D", flagEmoji: "🇦🇺" },
+  { name: "Turkey", shortCode: "TUR", group: "D", flagEmoji: "🇹🇷" },
   // Group E
-  { name: "Portugal", shortCode: "POR", group: "E", flagEmoji: "🇵🇹" },
-  { name: "Uruguay", shortCode: "URU", group: "E", flagEmoji: "🇺🇾" },
-  { name: "Senegal", shortCode: "SEN", group: "E", flagEmoji: "🇸🇳" },
-  { name: "Jamaica", shortCode: "JAM", group: "E", flagEmoji: "🇯🇲" },
+  { name: "Germany", shortCode: "GER", group: "E", flagEmoji: "🇩🇪" },
+  { name: "Curaçao", shortCode: "CUW", group: "E", flagEmoji: "🇨🇼" },
+  { name: "Ivory Coast", shortCode: "CIV", group: "E", flagEmoji: "🇨🇮" },
+  { name: "Ecuador", shortCode: "ECU", group: "E", flagEmoji: "🇪🇨" },
   // Group F
   { name: "Netherlands", shortCode: "NED", group: "F", flagEmoji: "🇳🇱" },
-  { name: "Colombia", shortCode: "COL", group: "F", flagEmoji: "🇨🇴" },
-  { name: "Egypt", shortCode: "EGY", group: "F", flagEmoji: "🇪🇬" },
-  { name: "Australia", shortCode: "AUS", group: "F", flagEmoji: "🇦🇺" },
+  { name: "Japan", shortCode: "JPN", group: "F", flagEmoji: "🇯🇵" },
+  { name: "Sweden", shortCode: "SWE", group: "F", flagEmoji: "🇸🇪" },
+  { name: "Tunisia", shortCode: "TUN", group: "F", flagEmoji: "🇹🇳" },
   // Group G
-  { name: "Italy", shortCode: "ITA", group: "G", flagEmoji: "🇮🇹" },
-  { name: "Ecuador", shortCode: "ECU", group: "G", flagEmoji: "🇪🇨" },
-  { name: "Nigeria", shortCode: "NGA", group: "G", flagEmoji: "🇳🇬" },
-  { name: "Jordan", shortCode: "JOR", group: "G", flagEmoji: "🇯🇴" },
+  { name: "Belgium", shortCode: "BEL", group: "G", flagEmoji: "🇧🇪" },
+  { name: "Egypt", shortCode: "EGY", group: "G", flagEmoji: "🇪🇬" },
+  { name: "Iran", shortCode: "IRN", group: "G", flagEmoji: "🇮🇷" },
+  { name: "New Zealand", shortCode: "NZL", group: "G", flagEmoji: "🇳🇿" },
   // Group H
-  { name: "Belgium", shortCode: "BEL", group: "H", flagEmoji: "🇧🇪" },
-  { name: "Switzerland", shortCode: "SUI", group: "H", flagEmoji: "🇨🇭" },
-  { name: "Iran", shortCode: "IRN", group: "H", flagEmoji: "🇮🇷" },
-  { name: "New Zealand", shortCode: "NZL", group: "H", flagEmoji: "🇳🇿" },
+  { name: "Spain", shortCode: "ESP", group: "H", flagEmoji: "🇪🇸" },
+  { name: "Cape Verde", shortCode: "CPV", group: "H", flagEmoji: "🇨🇻" },
+  { name: "Saudi Arabia", shortCode: "KSA", group: "H", flagEmoji: "🇸🇦" },
+  { name: "Uruguay", shortCode: "URU", group: "H", flagEmoji: "🇺🇾" },
   // Group I
-  { name: "Denmark", shortCode: "DEN", group: "I", flagEmoji: "🇩🇰" },
-  { name: "Croatia", shortCode: "CRO", group: "I", flagEmoji: "🇭🇷" },
-  { name: "Venezuela", shortCode: "VEN", group: "I", flagEmoji: "🇻🇪" },
-  { name: "Cameroon", shortCode: "CMR", group: "I", flagEmoji: "🇨🇲" },
+  { name: "France", shortCode: "FRA", group: "I", flagEmoji: "🇫🇷" },
+  { name: "Senegal", shortCode: "SEN", group: "I", flagEmoji: "🇸🇳" },
+  { name: "Iraq", shortCode: "IRQ", group: "I", flagEmoji: "🇮🇶" },
+  { name: "Norway", shortCode: "NOR", group: "I", flagEmoji: "🇳🇴" },
   // Group J
-  { name: "Serbia", shortCode: "SRB", group: "J", flagEmoji: "🇷🇸" },
-  { name: "Slovakia", shortCode: "SVK", group: "J", flagEmoji: "🇸🇰" },
-  { name: "Panama", shortCode: "PAN", group: "J", flagEmoji: "🇵🇦" },
-  { name: "Iraq", shortCode: "IRQ", group: "J", flagEmoji: "🇮🇶" },
+  { name: "Argentina", shortCode: "ARG", group: "J", flagEmoji: "🇦🇷" },
+  { name: "Algeria", shortCode: "ALG", group: "J", flagEmoji: "🇩🇿" },
+  { name: "Austria", shortCode: "AUT", group: "J", flagEmoji: "🇦🇹" },
+  { name: "Jordan", shortCode: "JOR", group: "J", flagEmoji: "🇯🇴" },
   // Group K
-  { name: "Austria", shortCode: "AUT", group: "K", flagEmoji: "🇦🇹" },
-  { name: "Belgium B", shortCode: "HON", group: "K", flagEmoji: "🇭🇳" },
-  { name: "New Zea", shortCode: "IDN", group: "K", flagEmoji: "🇮🇩" },
-  { name: "Honduras", shortCode: "HON2", group: "K", flagEmoji: "🇭🇳" },
+  { name: "Portugal", shortCode: "POR", group: "K", flagEmoji: "🇵🇹" },
+  { name: "DR Congo", shortCode: "COD", group: "K", flagEmoji: "🇨🇩" },
+  { name: "Uzbekistan", shortCode: "UZB", group: "K", flagEmoji: "🇺🇿" },
+  { name: "Colombia", shortCode: "COL", group: "K", flagEmoji: "🇨🇴" },
   // Group L
-  { name: "Turkey", shortCode: "TUR", group: "L", flagEmoji: "🇹🇷" },
-  { name: "Romania", shortCode: "ROU", group: "L", flagEmoji: "🇷🇴" },
-  { name: "Uzbekistan", shortCode: "UZB", group: "L", flagEmoji: "🇺🇿" },
-  { name: "Costa Rica", shortCode: "CRC", group: "L", flagEmoji: "🇨🇷" },
-];
-
-// Clean version with no duplicates
-const TEAMS_CLEAN: { name: string; shortCode: string; group: string; flagEmoji: string }[] = [
-  // Group A
-  { name: "Spain", shortCode: "ESP", group: "A", flagEmoji: "🇪🇸" },
-  { name: "United States", shortCode: "USA", group: "A", flagEmoji: "🇺🇸" },
-  { name: "Argentina", shortCode: "ARG", group: "A", flagEmoji: "🇦🇷" },
-  { name: "Morocco", shortCode: "MAR", group: "A", flagEmoji: "🇲🇦" },
-  // Group B
-  { name: "France", shortCode: "FRA", group: "B", flagEmoji: "🇫🇷" },
-  { name: "Mexico", shortCode: "MEX", group: "B", flagEmoji: "🇲🇽" },
-  { name: "South Korea", shortCode: "KOR", group: "B", flagEmoji: "🇰🇷" },
-  { name: "DR Congo", shortCode: "COD", group: "B", flagEmoji: "🇨🇩" },
-  // Group C
-  { name: "England", shortCode: "ENG", group: "C", flagEmoji: "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
-  { name: "Canada", shortCode: "CAN", group: "C", flagEmoji: "🇨🇦" },
-  { name: "Saudi Arabia", shortCode: "KSA", group: "C", flagEmoji: "🇸🇦" },
-  { name: "South Africa", shortCode: "RSA", group: "C", flagEmoji: "🇿🇦" },
-  // Group D
-  { name: "Germany", shortCode: "GER", group: "D", flagEmoji: "🇩🇪" },
-  { name: "Brazil", shortCode: "BRA", group: "D", flagEmoji: "🇧🇷" },
-  { name: "Japan", shortCode: "JPN", group: "D", flagEmoji: "🇯🇵" },
-  { name: "Tunisia", shortCode: "TUN", group: "D", flagEmoji: "🇹🇳" },
-  // Group E
-  { name: "Portugal", shortCode: "POR", group: "E", flagEmoji: "🇵🇹" },
-  { name: "Uruguay", shortCode: "URU", group: "E", flagEmoji: "🇺🇾" },
-  { name: "Senegal", shortCode: "SEN", group: "E", flagEmoji: "🇸🇳" },
-  { name: "Jamaica", shortCode: "JAM", group: "E", flagEmoji: "🇯🇲" },
-  // Group F
-  { name: "Netherlands", shortCode: "NED", group: "F", flagEmoji: "🇳🇱" },
-  { name: "Colombia", shortCode: "COL", group: "F", flagEmoji: "🇨🇴" },
-  { name: "Egypt", shortCode: "EGY", group: "F", flagEmoji: "🇪🇬" },
-  { name: "Australia", shortCode: "AUS", group: "F", flagEmoji: "🇦🇺" },
-  // Group G
-  { name: "Italy", shortCode: "ITA", group: "G", flagEmoji: "🇮🇹" },
-  { name: "Ecuador", shortCode: "ECU", group: "G", flagEmoji: "🇪🇨" },
-  { name: "Nigeria", shortCode: "NGA", group: "G", flagEmoji: "🇳🇬" },
-  { name: "Jordan", shortCode: "JOR", group: "G", flagEmoji: "🇯🇴" },
-  // Group H
-  { name: "Belgium", shortCode: "BEL", group: "H", flagEmoji: "🇧🇪" },
-  { name: "Switzerland", shortCode: "SUI", group: "H", flagEmoji: "🇨🇭" },
-  { name: "Iran", shortCode: "IRN", group: "H", flagEmoji: "🇮🇷" },
-  { name: "New Zealand", shortCode: "NZL", group: "H", flagEmoji: "🇳🇿" },
-  // Group I
-  { name: "Denmark", shortCode: "DEN", group: "I", flagEmoji: "🇩🇰" },
-  { name: "Croatia", shortCode: "CRO", group: "I", flagEmoji: "🇭🇷" },
-  { name: "Venezuela", shortCode: "VEN", group: "I", flagEmoji: "🇻🇪" },
-  { name: "Cameroon", shortCode: "CMR", group: "I", flagEmoji: "🇨🇲" },
-  // Group J
-  { name: "Serbia", shortCode: "SRB", group: "J", flagEmoji: "🇷🇸" },
-  { name: "Slovakia", shortCode: "SVK", group: "J", flagEmoji: "🇸🇰" },
-  { name: "Panama", shortCode: "PAN", group: "J", flagEmoji: "🇵🇦" },
-  { name: "Iraq", shortCode: "IRQ", group: "J", flagEmoji: "🇮🇶" },
-  // Group K
-  { name: "Austria", shortCode: "AUT", group: "K", flagEmoji: "🇦🇹" },
-  { name: "Indonesia", shortCode: "IDN", group: "K", flagEmoji: "🇮🇩" },
-  { name: "Honduras", shortCode: "HON", group: "K", flagEmoji: "🇭🇳" },
-  { name: "Ghana", shortCode: "GHA", group: "K", flagEmoji: "🇬🇭" },
-  // Group L
-  { name: "Turkey", shortCode: "TUR", group: "L", flagEmoji: "🇹🇷" },
-  { name: "Romania", shortCode: "ROU", group: "L", flagEmoji: "🇷🇴" },
-  { name: "Uzbekistan", shortCode: "UZB", group: "L", flagEmoji: "🇺🇿" },
-  { name: "Costa Rica", shortCode: "CRC", group: "L", flagEmoji: "🇨🇷" },
+  { name: "England", shortCode: "ENG", group: "L", flagEmoji: "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
+  { name: "Croatia", shortCode: "CRO", group: "L", flagEmoji: "🇭🇷" },
+  { name: "Ghana", shortCode: "GHA", group: "L", flagEmoji: "🇬🇭" },
+  { name: "Panama", shortCode: "PAN", group: "L", flagEmoji: "🇵🇦" },
 ];
 
 const PHASES = [
@@ -142,15 +78,18 @@ const PHASES = [
 async function main() {
   console.log("🌱 Seeding database...");
 
-  // Upsert teams
-  for (const team of TEAMS_CLEAN) {
-    await prisma.team.upsert({
-      where: { shortCode: team.shortCode },
-      update: {},
-      create: team,
-    });
-  }
-  console.log(`✅ Seeded ${TEAMS_CLEAN.length} teams`);
+  // Clear existing teams and dependent data to avoid stale entries
+  await prisma.groupResult.deleteMany();
+  await prisma.groupPrediction.deleteMany();
+  await prisma.knockoutPick.deleteMany();
+  await prisma.goldenPick.deleteMany();
+  await prisma.match.deleteMany();
+  await prisma.team.deleteMany();
+  console.log("🗑️  Cleared existing team/match data");
+
+  // Insert teams
+  await prisma.team.createMany({ data: TEAMS });
+  console.log(`✅ Seeded ${TEAMS.length} teams`);
 
   // Upsert phases
   for (const phase of PHASES) {
@@ -162,50 +101,22 @@ async function main() {
   }
   console.log(`✅ Seeded ${PHASES.length} phases`);
 
-  // Create knockout match stubs (R32 = 16 matches, R16 = 8, QF = 4, SF = 2, F = 1)
+  // Create knockout match stubs
   const phaseMatches: { phaseType: PhaseType; count: number; descFn: (i: number) => string }[] = [
-    {
-      phaseType: PhaseType.ROUND_OF_32,
-      count: 16,
-      descFn: (i) => `R32 Match ${i + 1}`,
-    },
-    {
-      phaseType: PhaseType.ROUND_OF_16,
-      count: 8,
-      descFn: (i) => `R16 Match ${i + 1}`,
-    },
-    {
-      phaseType: PhaseType.QUARTERFINALS,
-      count: 4,
-      descFn: (i) => `Quarterfinal ${i + 1}`,
-    },
-    {
-      phaseType: PhaseType.SEMIFINALS,
-      count: 2,
-      descFn: (i) => `Semifinal ${i + 1}`,
-    },
-    {
-      phaseType: PhaseType.FINAL,
-      count: 1,
-      descFn: () => "World Cup Final",
-    },
+    { phaseType: PhaseType.ROUND_OF_32, count: 16, descFn: (i) => `R32 Match ${i + 1}` },
+    { phaseType: PhaseType.ROUND_OF_16, count: 8, descFn: (i) => `R16 Match ${i + 1}` },
+    { phaseType: PhaseType.QUARTERFINALS, count: 4, descFn: (i) => `Quarterfinal ${i + 1}` },
+    { phaseType: PhaseType.SEMIFINALS, count: 2, descFn: (i) => `Semifinal ${i + 1}` },
+    { phaseType: PhaseType.FINAL, count: 1, descFn: () => "World Cup Final" },
   ];
 
   for (const { phaseType, count, descFn } of phaseMatches) {
     const phase = await prisma.phase.findUnique({ where: { type: phaseType } });
     if (!phase) continue;
-
-    const existingCount = await prisma.match.count({ where: { phaseId: phase.id } });
-    if (existingCount === 0) {
-      for (let i = 0; i < count; i++) {
-        await prisma.match.create({
-          data: {
-            phaseId: phase.id,
-            matchNumber: i + 1,
-            description: descFn(i),
-          },
-        });
-      }
+    for (let i = 0; i < count; i++) {
+      await prisma.match.create({
+        data: { phaseId: phase.id, matchNumber: i + 1, description: descFn(i) },
+      });
     }
   }
   console.log("✅ Seeded knockout match stubs");
@@ -216,14 +127,11 @@ async function main() {
   if (!existing) {
     const hashed = await bcrypt.hash(process.env.ADMIN_PASSWORD || "admin123", 12);
     await prisma.user.create({
-      data: {
-        email: adminEmail,
-        name: "Admin",
-        password: hashed,
-        role: "ADMIN",
-      },
+      data: { email: adminEmail, name: "Admin", password: hashed, role: "ADMIN" },
     });
     console.log(`✅ Created admin user: ${adminEmail}`);
+  } else {
+    console.log(`ℹ️  Admin user already exists: ${adminEmail}`);
   }
 
   console.log("🎉 Seeding complete!");
