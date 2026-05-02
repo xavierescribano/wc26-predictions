@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 interface Team {
@@ -43,6 +43,25 @@ export function AdminResultForm({ matches }: AdminResultFormProps) {
       ])
     )
   );
+
+  // Re-sync state when matches prop changes (e.g. after a phase is opened)
+  useEffect(() => {
+    setResults(
+      Object.fromEntries(
+        matches.map((m) => [
+          m.id,
+          {
+            homeScore: m.homeScore?.toString() ?? "",
+            awayScore: m.awayScore?.toString() ?? "",
+            winnerId: m.winnerId ?? "",
+            saving: false,
+            error: null,
+            saved: false,
+          },
+        ])
+      )
+    );
+  }, [matches]);
 
   function update(matchId: string, field: string, value: string) {
     setResults((prev) => ({
@@ -104,6 +123,7 @@ export function AdminResultForm({ matches }: AdminResultFormProps) {
     <div className="space-y-4">
       {matches.map((match) => {
         const r = results[match.id];
+        if (!r) return null;
         const homeTeamOptions = [match.homeTeam, match.awayTeam].filter(Boolean) as Team[];
 
         return (
