@@ -56,8 +56,8 @@ interface GroupCardProps {
 }
 
 function GroupCard({ groupLetter, teams, draft, prediction, isOpen, saveState, errorMsg, onChange }: GroupCardProps) {
-  const getUsedIds = (excludePos: number) =>
-    [1, 2, 3, 4].filter((p) => p !== excludePos).map((p) => draft[p]).filter(Boolean);
+  // No longer used for disabling — teams can be freely moved between positions
+  const getUsedIds = (_excludePos: number) => [] as string[];
 
   const hasPoints = prediction?.pointsEarned != null;
   const isComplete = isDraftComplete(draft);
@@ -203,14 +203,18 @@ export function GroupPickGrid({ teamsByGroup, existingPredictions, isOpen }: Gro
   const handleChange = useCallback(
     (groupLetter: string, pos: number, teamId: string) => {
       setDrafts((prev) => {
-        const updated = { ...prev[groupLetter], [pos]: teamId };
-        // Auto-save as soon as all 4 positions are filled
-        if (isDraftComplete(updated)) {
-          saveGroup(groupLetter, updated);
+        const current = { ...prev[groupLetter] };
+        // If this team is already in another position, clear that position
+        for (let p = 1; p <= 4; p++) {
+          if (p !== pos && current[p] === teamId) current[p] = "";
+        }
+        current[pos] = teamId;
+        if (isDraftComplete(current)) {
+          saveGroup(groupLetter, current);
         } else {
           setSaveStates((s) => ({ ...s, [groupLetter]: "idle" }));
         }
-        return { ...prev, [groupLetter]: updated };
+        return { ...prev, [groupLetter]: current };
       });
     },
     [saveGroup]

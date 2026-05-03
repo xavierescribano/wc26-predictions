@@ -18,6 +18,7 @@ export default async function DashboardPage() {
   const [openPhase, users] = await Promise.all([
     prisma.phase.findFirst({ where: { isOpen: true }, orderBy: { order: "asc" } }),
     prisma.user.findMany({
+      where: { role: "PLAYER" },
       include: {
         groupPredictions: { select: { pointsEarned: true } },
         knockoutPicks: { select: { pointsEarned: true } },

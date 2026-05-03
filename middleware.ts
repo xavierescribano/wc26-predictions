@@ -7,6 +7,13 @@ export default withAuth(
     if (req.nextUrl.pathname.startsWith("/admin") && token?.role !== "ADMIN") {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
+    // Admins don't play — redirect them away from picks and profile
+    if (req.nextUrl.pathname.startsWith("/picks") && token?.role === "ADMIN") {
+      return NextResponse.redirect(new URL("/admin", req.url));
+    }
+    if (req.nextUrl.pathname.startsWith("/profile") && token?.role === "ADMIN") {
+      return NextResponse.redirect(new URL("/admin", req.url));
+    }
   },
   {
     callbacks: {
