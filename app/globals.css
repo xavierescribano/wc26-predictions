@@ -2,98 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Light mode (default) ───────────────────────────────────────── */
 :root {
+  --background: #f1f5f9;
+  --foreground: #0f172a;
+  --nav-bg: #ffffff;
+  --nav-border: #e2e8f0;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --card-inner: #f8fafc;
+  --muted: #64748b;
+  --accent-green: #16a34a;
+}
+
+/* ── Dark mode ───────────────────────────────────────────────────── */
+.dark {
   --background: #0f172a;
   --foreground: #f8fafc;
-  --accent-green: #22c55e;
-  --accent-green-dark: #16a34a;
-  --accent-green-light: #4ade80;
-  --pitch-green: #15803d;
+  --nav-bg: #1e293b;
+  --nav-border: #334155;
   --card-bg: #1e293b;
   --card-border: #334155;
+  --card-inner: #0f172a;
   --muted: #64748b;
+  --accent-green: #22c55e;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 
+  /* Theme-aware card */
   .card-wc26 {
-    @apply bg-slate-800 border border-slate-700 rounded-xl;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    @apply rounded-xl;
   }
 
   .btn-primary {
     @apply bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-semibold
            rounded-lg px-4 py-2 transition-colors duration-150 focus:outline-none
-           focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-slate-900
+           focus:ring-2 focus:ring-green-500 focus:ring-offset-2
            disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
-  .btn-secondary {
-    @apply bg-slate-700 hover:bg-slate-600 active:bg-slate-800 text-white font-semibold
-           rounded-lg px-4 py-2 transition-colors duration-150 focus:outline-none
-           focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:ring-offset-slate-900;
-  }
-
   .input-wc26 {
-    @apply w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2.5
-           text-white placeholder-slate-400 focus:outline-none focus:ring-2
-           focus:ring-green-500 focus:border-transparent transition-colors duration-150;
-  }
-
-  .label-wc26 {
-    @apply block text-sm font-medium text-slate-300 mb-1.5;
+    @apply w-full rounded-lg px-3 py-2.5 text-sm
+           focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent
+           transition-colors duration-150
+           bg-slate-100 dark:bg-slate-800
+           border border-slate-300 dark:border-slate-600
+           text-slate-900 dark:text-white
+           placeholder-slate-400;
   }
 
   .nav-link {
-    @apply text-slate-300 hover:text-green-400 px-3 py-2 rounded-md text-sm font-medium
-           transition-colors duration-150;
+    @apply px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+           text-slate-600 dark:text-slate-300
+           hover:text-green-600 dark:hover:text-green-400;
   }
 
   .nav-link-active {
-    @apply text-green-400 bg-slate-700 px-3 py-2 rounded-md text-sm font-medium;
+    @apply px-3 py-2 rounded-md text-sm font-medium
+           text-green-600 dark:text-green-400
+           bg-green-50 dark:bg-slate-700;
   }
 }
 
-/* Subtle pitch-line pattern for hero sections */
+/* Pitch background pattern */
 .pitch-bg {
   background-image: repeating-linear-gradient(
-    90deg,
-    transparent,
-    transparent 49px,
-    rgba(255, 255, 255, 0.03) 49px,
-    rgba(255, 255, 255, 0.03) 50px
+    90deg, transparent, transparent 49px,
+    rgba(0,0,0,0.03) 49px, rgba(0,0,0,0.03) 50px
   ),
   repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 49px,
-    rgba(255, 255, 255, 0.03) 49px,
-    rgba(255, 255, 255, 0.03) 50px
+    0deg, transparent, transparent 49px,
+    rgba(0,0,0,0.03) 49px, rgba(0,0,0,0.03) 50px
   );
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+.dark .pitch-bg {
+  background-image: repeating-linear-gradient(
+    90deg, transparent, transparent 49px,
+    rgba(255,255,255,0.03) 49px, rgba(255,255,255,0.03) 50px
+  ),
+  repeating-linear-gradient(
+    0deg, transparent, transparent 49px,
+    rgba(255,255,255,0.03) 49px, rgba(255,255,255,0.03) 50px
+  );
 }
 
-::-webkit-scrollbar-track {
-  background: #1e293b;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #475569;
-}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--card-inner); }
+::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }

@@ -13,6 +13,10 @@ export async function POST() {
   await prisma.groupPrediction.deleteMany();
   await prisma.knockoutPick.deleteMany();
   await prisma.goldenPick.deleteMany();
+  await prisma.topScorerPlayerPick.deleteMany();
+  await prisma.topScorerTeamPick.deleteMany();
+  await prisma.countriesFightPick.deleteMany();
+  await prisma.countriesFight.deleteMany();
 
   // Reset all match results (keep stubs, just clear scores/winner)
   await prisma.match.updateMany({

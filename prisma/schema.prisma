@@ -33,12 +33,15 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  accounts         Account[]
-  sessions         Session[]
-  groupPredictions GroupPrediction[]
-  knockoutPicks    KnockoutPick[]
-  goldenPick       GoldenPick?
-  sentInvites      Invite[]          @relation("InviteSender")
+  accounts              Account[]
+  sessions              Session[]
+  groupPredictions      GroupPrediction[]
+  knockoutPicks         KnockoutPick[]
+  goldenPick            GoldenPick?
+  topScorerPlayerPick   TopScorerPlayerPick?
+  topScorerTeamPick     TopScorerTeamPick?
+  countriesFightPicks   CountriesFightPick[]
+  sentInvites           Invite[]             @relation("InviteSender")
 }
 
 model Account {
@@ -94,9 +97,10 @@ model Team {
   group     String
   flagEmoji String?
 
-  homeMatches  Match[] @relation("HomeTeam")
-  awayMatches  Match[] @relation("AwayTeam")
-  wonMatches   Match[] @relation("Winner")
+  homeMatches         Match[] @relation("HomeTeam")
+  awayMatches         Match[] @relation("AwayTeam")
+  wonMatches          Match[] @relation("Winner")
+  topScorerTeamPicks  TopScorerTeamPick[]
 
   position1Predictions GroupPrediction[] @relation("Position1")
   position2Predictions GroupPrediction[] @relation("Position2")
@@ -194,6 +198,57 @@ model KnockoutPick {
   pickedTeam Team  @relation(fields: [pickedTeamId], references: [id])
 
   @@unique([userId, matchId])
+}
+
+model TopScorerPlayerPick {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  playerName   String
+  isCorrect    Boolean?
+  pointsEarned Int?
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TopScorerTeamPick {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  teamId       String
+  isCorrect    Boolean?
+  pointsEarned Int?
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team Team @relation(fields: [teamId], references: [id])
+}
+
+model CountriesFight {
+  id        String   @id @default(cuid())
+  title     String
+  teamAName String
+  teamBName String
+  isOpen    Boolean  @default(true)
+  result    String?
+  createdAt DateTime @default(now())
+
+  picks CountriesFightPick[]
+}
+
+model CountriesFightPick {
+  id           String   @id @default(cuid())
+  userId       String
+  fightId      String
+  prediction   String
+  isCorrect    Boolean?
+  pointsEarned Int?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user  User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fight CountriesFight @relation(fields: [fightId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, fightId])
 }
 
 model GoldenPick {

@@ -6,6 +6,7 @@ import { AdminInviteForm } from "@/components/admin/AdminInviteForm";
 import { AdminResultForm } from "@/components/admin/AdminResultForm";
 import { AdminGroupResultForm } from "@/components/admin/AdminGroupResultForm";
 import { AdminResetButton } from "@/components/admin/AdminResetButton";
+import { AdminCountriesFight } from "@/components/admin/AdminCountriesFight";
 
 const PHASE_LABELS: Record<string, string> = {
   GROUP_STAGE: "Group Stage",
@@ -21,7 +22,7 @@ export default async function AdminPage() {
   if (!session?.user) redirect("/login");
   if ((session.user as any).role !== "ADMIN") redirect("/dashboard");
 
-  const [phases, users, openPhaseWithMatches, allTeams, existingGroupResults] = await Promise.all([
+  const [phases, users, openPhaseWithMatches, allTeams, existingGroupResults, countriesFights] = await Promise.all([
     prisma.phase.findMany({ orderBy: { order: "asc" } }),
     prisma.user.findMany({
       orderBy: { createdAt: "asc" },
@@ -48,6 +49,7 @@ export default async function AdminPage() {
     }),
     prisma.team.findMany({ orderBy: [{ group: "asc" }, { name: "asc" }] }),
     prisma.groupResult.findMany({ orderBy: { groupLetter: "asc" } }),
+    prisma.countriesFight.findMany({ orderBy: { createdAt: "desc" }, include: { _count: { select: { picks: true } } } }),
   ]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -250,6 +252,16 @@ export default async function AdminPage() {
           <AdminResultForm matches={matchesForResults} />
         </div>
       </section>
+
+      {/* Countries Fight */}
+      <section className="bg-slate-800/50 rounded-2xl border border-slate-700 p-6 space-y-4">
+        <div>
+          <h2 className="text-lg font-bold text-white">⚔️ Countries Fight</h2>
+          <p className="text-slate-400 text-sm mt-1">Create matchup bets — users pick the winner, +10 pts if correct</p>
+        </div>
+        <AdminCountriesFight fights={countriesFights} />
+      </section>
+
     </div>
   );
 }
