@@ -9,7 +9,8 @@ interface Fight {
   teamAName: string;
   teamBName: string;
   isOpen: boolean;
-  result: string | null;
+  resultA: number | null;
+  resultB: number | null;
   _count: { picks: number };
 }
 
@@ -23,6 +24,8 @@ export function AdminCountriesFight({ fights: initial }: Props) {
   const [teamB, setTeamB] = useState("");
   const [creating, setCreating] = useState(false);
   const [createError, setCreateError] = useState("");
+  // Per-fight result inputs
+  const [resultInputs, setResultInputs] = useState<Record<string, { a: string; b: string }>>({});
 
   async function handleCreate() {
     if (!title.trim() || !teamA.trim() || !teamB.trim()) {
@@ -37,7 +40,7 @@ export function AdminCountriesFight({ fights: initial }: Props) {
     const data = await res.json();
     if (!res.ok) { setCreateError(data.error ?? "Error"); }
     else {
-      setFights((prev) => [{ ...data, _count: { picks: 0 } }, ...prev]);
+      setFights((prev) => [data, ...prev]);
       setTitle(""); setTeamA(""); setTeamB("");
     }
     setCreating(false);
@@ -49,25 +52,28 @@ export function AdminCountriesFight({ fights: initial }: Props) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fightId, isOpen: !isOpen }),
     });
-    if (res.ok) {
-      setFights((prev) => prev.map((f) => f.id === fightId ? { ...f, isOpen: !isOpen } : f));
-    }
+    if (res.ok) setFights((prev) => prev.map((f) => f.id === fightId ? { ...f, isOpen: !isOpen } : f));
   }
 
-  async function handleResult(fightId: string, result: string) {
+  async function handleResult(fightId: string) {
+    const inp = resultInputs[fightId];
+    const a = parseInt(inp?.a ?? "", 10);
+    const b = parseInt(inp?.b ?? "", 10);
+    if (isNaN(a) || isNaN(b) || a < 0 || b < 0) return;
+
     const res = await fetch("/api/admin/countries-fight", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fightId, result }),
+      body: JSON.stringify({ fightId, resultA: a, resultB: b }),
     });
     if (res.ok) {
-      setFights((prev) => prev.map((f) => f.id === fightId ? { ...f, result, isOpen: false } : f));
+      setFights((prev) => prev.map((f) => f.id === fightId ? { ...f, resultA: a, resultB: b, isOpen: false } : f));
       router.refresh();
     }
   }
 
   async function handleDelete(fightId: string) {
-    if (!confirm("Delete this fight and all picks? This cannot be undone.")) return;
+    if (!confirm("Delete this fight and all picks? Cannot be undone.")) return;
     const res = await fetch("/api/admin/countries-fight", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -76,16 +82,22 @@ export function AdminCountriesFight({ fights: initial }: Props) {
     if (res.ok) setFights((prev) => prev.filter((f) => f.id !== fightId));
   }
 
+  function setInput(fightId: string, side: "a" | "b", value: string) {
+    setResultInputs((prev) => ({ ...prev, [fightId]: { ...prev[fightId], [side]: value } }));
+  }
+
   return (
     <div className="space-y-6">
       {/* Create form */}
       <div className="rounded-xl border bg-[var(--card-bg)] border-[var(--card-border)] p-5 space-y-4">
         <h3 className="font-semibold text-slate-900 dark:text-white text-sm">➕ Create a new fight</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Fight title (e.g. Group A opener)" className="input-wc26 sm:col-span-3" />
-          <input value={teamA} onChange={(e) => setTeamA(e.target.value)} placeholder="Team A name" className="input-wc26" />
-          <div className="flex items-center justify-center text-slate-400 text-sm font-bold">vs</div>
-          <input value={teamB} onChange={(e) => setTeamB(e.target.value)} placeholder="Team B name" className="input-wc26" />
+        <div className="space-y-3">
+          <input value={title} onChange={(e) => setTitle(e.target.value)}
+            placeholder="Match title (e.g. Brazil vs Morocco – Group C)" className="input-wc26" />
+          <div className="grid grid-cols-2 gap-3">
+            <input value={teamA} onChange={(e) => setTeamA(e.target.value)} placeholder="Team A name" className="input-wc26" />
+            <input value={teamB} onChange={(e) => setTeamB(e.target.value)} placeholder="Team B name" className="input-wc26" />
+          </div>
         </div>
         {createError && <p className="text-red-500 text-sm">{createError}</p>}
         <button onClick={handleCreate} disabled={creating} className="btn-primary">
@@ -98,58 +110,77 @@ export function AdminCountriesFight({ fights: initial }: Props) {
         <p className="text-slate-400 text-sm text-center py-4">No fights created yet.</p>
       ) : (
         <div className="space-y-3">
-          {fights.map((fight) => (
-            <div key={fight.id} className="rounded-xl border bg-[var(--card-bg)] border-[var(--card-border)] p-4">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-slate-900 dark:text-white text-sm truncate">{fight.title}</p>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">
-                    {fight.teamAName} vs {fight.teamBName} · {fight._count.picks} picks
-                    {fight.result && <span className="ml-2 text-emerald-600 dark:text-emerald-400 font-semibold">
-                      · Result: {fight.result === "A" ? fight.teamAName : fight.result === "B" ? fight.teamBName : "Draw"}
-                    </span>}
-                  </p>
+          {fights.map((fight) => {
+            const inp = resultInputs[fight.id] ?? { a: "", b: "" };
+            const hasResult = fight.resultA !== null && fight.resultB !== null;
+            return (
+              <div key={fight.id} className="rounded-xl border bg-[var(--card-bg)] border-[var(--card-border)] p-4 space-y-3">
+                {/* Top row */}
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="font-semibold text-slate-900 dark:text-white text-sm">{fight.title}</p>
+                    <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">
+                      {fight.teamAName} vs {fight.teamBName} · {fight._count.picks} pick{fight._count.picks !== 1 ? "s" : ""}
+                      {hasResult && (
+                        <span className="ml-2 text-emerald-600 dark:text-emerald-400 font-semibold">
+                          · Result: {fight.teamAName} {fight.resultA}–{fight.resultB} {fight.teamBName}
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                      fight.isOpen
+                        ? "bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-400"
+                        : "bg-slate-100 dark:bg-slate-700 text-slate-500"
+                    }`}>{fight.isOpen ? "Open" : "Closed"}</span>
+                    <button onClick={() => handleDelete(fight.id)}
+                      className="text-slate-400 hover:text-red-500 transition-colors text-xs px-1.5 py-1 rounded hover:bg-red-50 dark:hover:bg-red-500/10">
+                      🗑️
+                    </button>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-2 flex-wrap">
+                {/* Controls */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                   {/* Open/close toggle */}
-                  {!fight.result && (
+                  {!hasResult && (
                     <button onClick={() => handleToggle(fight.id, fight.isOpen)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border ${
                         fight.isOpen
                           ? "bg-red-500/10 text-red-500 border-red-500/30 hover:bg-red-500/20"
                           : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
                       }`}>
-                      {fight.isOpen ? "Close betting" : "Open betting"}
+                      {fight.isOpen ? "Close betting" : "Reopen betting"}
                     </button>
                   )}
 
-                  {/* Set result */}
-                  {!fight.result && (
-                    <div className="flex items-center gap-1">
-                      <span className="text-xs text-slate-400">Result:</span>
-                      {[
-                        { v: "A", label: fight.teamAName.split(" ")[0] },
-                        { v: "draw", label: "Draw" },
-                        { v: "B", label: fight.teamBName.split(" ")[0] },
-                      ].map((opt) => (
-                        <button key={opt.v} onClick={() => handleResult(fight.id, opt.v)}
-                          className="px-2 py-1 rounded text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-500/20 hover:text-blue-600 dark:hover:text-blue-400 transition-colors border border-slate-200 dark:border-slate-600">
-                          {opt.label}
+                  {/* Set exact result */}
+                  {!hasResult && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-slate-500 dark:text-slate-400 shrink-0">Enter result:</span>
+                      <div className="flex items-center gap-1.5">
+                        <input type="number" min="0" max="99" value={inp.a}
+                          onChange={(e) => setInput(fight.id, "a", e.target.value)}
+                          placeholder="0"
+                          className="w-14 text-center text-sm font-bold py-1.5 rounded-lg border bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                        <span className="text-slate-400 font-bold">–</span>
+                        <input type="number" min="0" max="99" value={inp.b}
+                          onChange={(e) => setInput(fight.id, "b", e.target.value)}
+                          placeholder="0"
+                          className="w-14 text-center text-sm font-bold py-1.5 rounded-lg border bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                        <button onClick={() => handleResult(fight.id)}
+                          disabled={inp.a === "" || inp.b === ""}
+                          className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:text-slate-400 disabled:cursor-not-allowed text-white transition-colors">
+                          Set & score
                         </button>
-                      ))}
+                      </div>
                     </div>
                   )}
-
-                  {/* Delete */}
-                  <button onClick={() => handleDelete(fight.id)}
-                    className="px-2 py-1.5 rounded-lg text-xs text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors border border-transparent hover:border-red-200 dark:hover:border-red-500/20">
-                    🗑️
-                  </button>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

@@ -20,9 +20,13 @@ export async function POST(req: NextRequest) {
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const userId = (session.user as { id: string }).id;
 
-  const { fightId, prediction } = await req.json();
-  if (!fightId || !["A", "B", "draw"].includes(prediction)) {
-    return NextResponse.json({ error: "fightId and prediction (A/B/draw) are required" }, { status: 400 });
+  const { fightId, goalsA, goalsB } = await req.json();
+
+  if (!fightId || goalsA === undefined || goalsB === undefined) {
+    return NextResponse.json({ error: "fightId, goalsA and goalsB are required" }, { status: 400 });
+  }
+  if (!Number.isInteger(goalsA) || !Number.isInteger(goalsB) || goalsA < 0 || goalsB < 0) {
+    return NextResponse.json({ error: "Goals must be non-negative integers" }, { status: 400 });
   }
 
   const fight = await prisma.countriesFight.findUnique({ where: { id: fightId } });
@@ -31,8 +35,8 @@ export async function POST(req: NextRequest) {
 
   const pick = await prisma.countriesFightPick.upsert({
     where: { userId_fightId: { userId, fightId } },
-    update: { prediction },
-    create: { userId, fightId, prediction },
+    update: { goalsA, goalsB },
+    create: { userId, fightId, goalsA, goalsB },
   });
 
   return NextResponse.json(pick);

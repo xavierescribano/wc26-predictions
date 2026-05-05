@@ -41,11 +41,13 @@ export default async function CountriesFightPage() {
             teamAName: f.teamAName,
             teamBName: f.teamBName,
             isOpen: f.isOpen,
-            result: f.result,
+            resultA: f.resultA,
+            resultB: f.resultB,
           }))}
           picks={picks.map((p) => ({
             fightId: p.fightId,
-            prediction: p.prediction,
+            goalsA: p.goalsA,
+            goalsB: p.goalsB,
             isCorrect: p.isCorrect,
             pointsEarned: p.pointsEarned,
           }))}

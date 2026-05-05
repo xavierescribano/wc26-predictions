@@ -229,7 +229,8 @@ model CountriesFight {
   teamAName String
   teamBName String
   isOpen    Boolean  @default(true)
-  result    String?
+  resultA   Int?
+  resultB   Int?
   createdAt DateTime @default(now())
 
   picks CountriesFightPick[]
@@ -239,7 +240,8 @@ model CountriesFightPick {
   id           String   @id @default(cuid())
   userId       String
   fightId      String
-  prediction   String
+  goalsA       Int
+  goalsB       Int
   isCorrect    Boolean?
   pointsEarned Int?
   createdAt    DateTime @default(now())
