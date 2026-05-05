@@ -37,7 +37,8 @@
       "Bash(git commit -m 'Fix phase toggle: send phaseType+action instead of phaseId+isOpen *)",
       "Bash(git commit -m 'Fix AdminResultForm crash when matches prop changes after phase open *)",
       "Bash(git commit -m 'Auto-save picks on change — remove manual Save button *)",
-      "Bash(git commit -m 'Remove stale phase prop from KnockoutPickGrid *)"
+      "Bash(git commit -m 'Remove stale phase prop from KnockoutPickGrid *)",
+      "Bash(git commit -m 'Add Remove User button to admin panel *)"
     ]
   }
 }

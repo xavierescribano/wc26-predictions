@@ -2,6 +2,24 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "@/lib/auth";
 
+export async function DELETE(req: NextRequest) {
+  const session = await getServerSession();
+  if (!session?.user || (session.user as { role?: string }).role !== "ADMIN") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  const { userId } = await req.json().catch(() => ({}));
+  if (!userId) return NextResponse.json({ error: "userId required" }, { status: 400 });
+
+  // Prevent deleting yourself or other admins
+  const target = await prisma.user.findUnique({ where: { id: userId } });
+  if (!target) return NextResponse.json({ error: "User not found" }, { status: 404 });
+  if (target.role === "ADMIN") return NextResponse.json({ error: "Cannot remove an admin user" }, { status: 400 });
+
+  await prisma.user.delete({ where: { id: userId } });
+  return NextResponse.json({ ok: true });
+}
+
 export async function GET(_req: NextRequest) {
   const session = await getServerSession();
 
