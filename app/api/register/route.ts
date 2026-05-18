@@ -44,8 +44,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "This invite has already been used" }, { status: 400 });
   }
 
-  // Verify the email matches the invite (case-insensitive)
-  if (invite.email.toLowerCase() !== normalizedEmail) {
+  // If the invite was created with a real email, verify it matches.
+  // If it was created with a label (no @), any valid email is accepted.
+  const inviteHasRealEmail = invite.email.includes("@");
+  if (inviteHasRealEmail && invite.email.toLowerCase() !== normalizedEmail) {
     return NextResponse.json(
       { error: "Email does not match the invited email address" },
       { status: 400 }

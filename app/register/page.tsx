@@ -41,7 +41,8 @@ function RegisterForm() {
         } else {
           const data: InviteInfo = await res.json();
           setInvite(data);
-          setEmail(data.email);
+          // Only pre-fill email if the invite was created with a real email address
+          if (data.email.includes("@")) setEmail(data.email);
           if (data.name) setName(data.name);
         }
       } catch {
@@ -165,7 +166,9 @@ function RegisterForm() {
           <div className="flex items-center gap-2 bg-green-950/50 border border-green-800 rounded-lg px-4 py-2.5 mb-4 text-sm text-green-300">
             <span>✅</span>
             <span>
-              Valid invite for <strong>{invite.email}</strong>
+              {invite.email.includes("@")
+                ? <>Valid invite for <strong>{invite.email}</strong></>
+                : <>Valid invite — enter your email address below</>}
             </span>
           </div>
         )}
@@ -197,21 +200,29 @@ function RegisterForm() {
               <label htmlFor="email" className="label-wc26">
                 Email address
               </label>
-              <input
-                id="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                disabled={!!invite}
-                onChange={(e) => setEmail(e.target.value)}
-                className={`input-wc26 ${invite ? "opacity-60 cursor-not-allowed" : ""}`}
-              />
-              {invite && (
-                <p className="mt-1 text-xs text-blue-300/50">
-                  Email is pre-filled from your invite and cannot be changed.
-                </p>
-              )}
+              {(() => {
+                const locked = !!invite && invite.email.includes("@");
+                return (
+                  <>
+                    <input
+                      id="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      value={email}
+                      disabled={locked}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@example.com"
+                      className={`input-wc26 ${locked ? "opacity-60 cursor-not-allowed" : ""}`}
+                    />
+                    {locked && (
+                      <p className="mt-1 text-xs text-blue-300/50">
+                        Email is pre-filled from your invite and cannot be changed.
+                      </p>
+                    )}
+                  </>
+                );
+              })()}
             </div>
 
             <div>
