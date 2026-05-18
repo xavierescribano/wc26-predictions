@@ -8,6 +8,7 @@ import { AdminGroupResultForm } from "@/components/admin/AdminGroupResultForm";
 import { AdminResetButton } from "@/components/admin/AdminResetButton";
 import { AdminUserList } from "@/components/admin/AdminUserList";
 import { AdminCountriesFight } from "@/components/admin/AdminCountriesFight";
+import { AdminSpecialPicks } from "@/components/admin/AdminSpecialPicks";
 
 const PHASE_LABELS: Record<string, string> = {
   GROUP_STAGE: "Group Stage",
@@ -170,6 +171,17 @@ export default async function AdminPage() {
         <div className="bg-slate-800 rounded-2xl border border-slate-700 p-5">
           <AdminResultForm matches={matchesForResults} />
         </div>
+      </section>
+
+      {/* ── Special Picks Scoring ── */}
+      <section className="bg-slate-800/50 rounded-2xl border border-slate-700 p-6 space-y-4">
+        <div>
+          <h2 className="text-lg font-bold text-white">⭐ Apuestas Especiales — Puntuación</h2>
+          <p className="text-slate-400 text-sm mt-1">
+            Marca qué jugadores acertaron el máximo goleador y selecciona el equipo más goleador real.
+          </p>
+        </div>
+        <AdminSpecialPicks teams={allTeams} />
       </section>
 
       {/* Countries Fight */}

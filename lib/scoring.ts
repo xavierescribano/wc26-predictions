@@ -30,6 +30,10 @@ export function calcGoldenPickPoints(isCorrect: boolean, changes: number): numbe
   return Math.max(0, 50 - changes * 10);
 }
 
+// Top Scorer (player & team): flat 25 pts each, scored manually by admin
+export const TOP_SCORER_PLAYER_PTS = 25;
+export const TOP_SCORER_TEAM_PTS   = 25;
+
 export const PHASE_LABELS: Record<string, string> = {
   GROUP_STAGE: "Group Stage",
   ROUND_OF_32: "Round of 32",
