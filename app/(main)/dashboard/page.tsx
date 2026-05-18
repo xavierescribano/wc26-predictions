@@ -61,44 +61,47 @@ export default async function DashboardPage() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Dashboard</h1>
-        <p className="text-slate-500 dark:text-slate-400 mt-1">
+        <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          Dash<span className="text-red-500">board</span>
+        </h1>
+        <p className="text-blue-300/50 mt-1 flex items-center gap-1.5 text-sm">
+          <span>🇺🇸🇨🇦🇲🇽</span>
           Welcome back, {(session.user as { name?: string }).name ?? (session.user as { email?: string }).email}
         </p>
       </div>
 
       {/* Phase Status + User Quick Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="bg-slate-800 rounded-2xl p-5 border border-slate-700">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">Current Phase</p>
+        <div className="bg-[#0c1630] rounded-2xl p-5 border border-blue-900/40">
+          <p className="text-xs font-semibold text-blue-200/60 uppercase tracking-widest mb-2">Current Phase</p>
           {openPhase ? (
             <div className="flex items-center gap-3">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-semibold">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-semibold">
+                <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
                 OPEN
               </span>
               <span className="text-white font-semibold text-lg">{PHASE_LABELS[openPhase.type] ?? openPhase.type}</span>
             </div>
           ) : (
             <div className="flex items-center gap-3">
-              <span className="inline-flex items-center px-3 py-1 rounded-full bg-slate-700 text-slate-400 text-xs font-semibold">CLOSED</span>
-              <span className="text-slate-400 font-medium">No phase currently open</span>
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#0f1e3d] text-blue-200/60 text-xs font-semibold">CLOSED</span>
+              <span className="text-blue-200/60 font-medium">No phase currently open</span>
             </div>
           )}
         </div>
 
-        <div className="bg-slate-800 rounded-2xl p-5 border border-slate-700">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">Your Ranking</p>
+        <div className="bg-[#0c1630] rounded-2xl p-5 border border-blue-900/40">
+          <p className="text-xs font-semibold text-blue-200/60 uppercase tracking-widest mb-2">Your Ranking</p>
           {currentUser ? (
             <div className="flex items-end gap-3">
-              <span className="text-4xl font-black text-emerald-400">#{userRank}</span>
+              <span className="text-4xl font-black text-red-500">#{userRank}</span>
               <div className="mb-1">
                 <span className="text-white font-bold text-lg">{currentUser.total}</span>
-                <span className="text-slate-400 text-sm ml-1">pts</span>
+                <span className="text-blue-200/60 text-sm ml-1">pts</span>
               </div>
             </div>
           ) : (
-            <p className="text-slate-400">No picks yet</p>
+            <p className="text-blue-200/60">No picks yet</p>
           )}
         </div>
       </div>
@@ -113,7 +116,7 @@ export default async function DashboardPage() {
             )}
             <div>
               <p className="text-white font-bold text-lg">{currentUser.goldenPick.team.name}</p>
-              <p className="text-slate-400 text-sm">
+              <p className="text-blue-200/60 text-sm">
                 {currentUser.goldenPick.pointsEarned != null
                   ? `${currentUser.goldenPick.pointsEarned} pts earned`
                   : "Points pending"}
@@ -122,32 +125,32 @@ export default async function DashboardPage() {
               </p>
             </div>
             {currentUser.goldenPick.isCorrect === true && (
-              <span className="ml-auto px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold">CORRECT</span>
+              <span className="ml-auto px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold">CORRECT</span>
             )}
           </div>
         </div>
       )}
 
       {/* Leaderboard */}
-      <div className="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
-        <div className="px-5 py-4 border-b border-slate-700">
+      <div className="bg-[#0c1630] rounded-2xl border border-blue-900/40 overflow-hidden">
+        <div className="px-5 py-4 border-b border-blue-900/40">
           <h2 className="text-white font-semibold text-lg">Leaderboard</h2>
         </div>
 
         {/* Mobile */}
-        <div className="sm:hidden divide-y divide-slate-700">
+        <div className="sm:hidden divide-y divide-blue-900/30">
           {leaderboard.map((player, i) => {
             const isMe = player.id === myId;
             return (
-              <div key={player.id} className={`px-5 py-4 flex items-center gap-4 ${isMe ? "bg-emerald-500/10" : ""}`}>
+              <div key={player.id} className={`px-5 py-4 flex items-center gap-4 ${isMe ? "bg-red-600/8" : ""}`}>
                 <span className={`w-7 text-center font-bold shrink-0 ${
-                  i === 0 ? "text-amber-400" : i === 1 ? "text-slate-300" : i === 2 ? "text-amber-700" : "text-slate-500"
+                  i === 0 ? "text-amber-400" : i === 1 ? "text-slate-200" : i === 2 ? "text-amber-700" : "text-blue-300/50"
                 }`}>{i + 1}</span>
                 <div className="flex-1 min-w-0">
-                  <p className={`font-semibold truncate ${isMe ? "text-emerald-400" : "text-white"}`}>
+                  <p className={`font-semibold truncate ${isMe ? "text-red-400" : "text-white"}`}>
                     {player.name} {isMe && <span className="text-xs opacity-60">(you)</span>}
                   </p>
-                  <p className="text-xs text-slate-400 mt-0.5">
+                  <p className="text-xs text-blue-200/60 mt-0.5">
                     Groups: {player.groupPoints} · KO: {player.knockoutPoints} · Golden: {player.goldenPoints}
                     {player.specialPoints > 0 && ` · Specials: ${player.specialPoints}`}
                     {player.fightPoints > 0 && ` · Fight: ${player.fightPoints}`}
@@ -163,7 +166,7 @@ export default async function DashboardPage() {
         <div className="hidden sm:block overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-xs text-slate-400 uppercase tracking-wider border-b border-slate-700">
+              <tr className="text-left text-xs text-blue-200/60 uppercase tracking-wider border-b border-blue-900/40">
                 <th className="px-4 py-3 w-10">#</th>
                 <th className="px-4 py-3">Player</th>
                 <th className="px-4 py-3 text-right">Groups</th>
@@ -174,27 +177,27 @@ export default async function DashboardPage() {
                 <th className="px-4 py-3 text-right font-bold text-white">Total</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-700">
+            <tbody className="divide-y divide-blue-900/30">
               {leaderboard.map((player, i) => {
                 const isMe = player.id === myId;
                 return (
-                  <tr key={player.id} className={`transition-colors ${isMe ? "bg-emerald-500/10" : "hover:bg-slate-700/50"}`}>
+                  <tr key={player.id} className={`transition-colors ${isMe ? "bg-red-600/8" : "hover:bg-[#0f1e3d]/60"}`}>
                     <td className="px-4 py-4">
                       <span className={`font-bold ${
-                        i === 0 ? "text-amber-400" : i === 1 ? "text-slate-300" : i === 2 ? "text-amber-700" : "text-slate-500"
+                        i === 0 ? "text-amber-400" : i === 1 ? "text-slate-200" : i === 2 ? "text-amber-700" : "text-blue-300/50"
                       }`}>{i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i + 1}</span>
                     </td>
                     <td className="px-4 py-4">
-                      <span className={`font-semibold ${isMe ? "text-emerald-400" : "text-white"}`}>
+                      <span className={`font-semibold ${isMe ? "text-red-400" : "text-white"}`}>
                         {player.name}
                       </span>
-                      {isMe && <span className="ml-2 text-xs text-slate-400">(you)</span>}
+                      {isMe && <span className="ml-2 text-xs text-blue-200/60">(you)</span>}
                     </td>
-                    <td className="px-4 py-4 text-right text-slate-300">{player.groupPoints}</td>
-                    <td className="px-4 py-4 text-right text-slate-300">{player.knockoutPoints}</td>
-                    <td className="px-4 py-4 text-right text-slate-300">{player.goldenPoints}</td>
-                    <td className="px-4 py-4 text-right text-slate-300">{player.specialPoints}</td>
-                    <td className="px-4 py-4 text-right text-slate-300">{player.fightPoints}</td>
+                    <td className="px-4 py-4 text-right text-slate-200">{player.groupPoints}</td>
+                    <td className="px-4 py-4 text-right text-slate-200">{player.knockoutPoints}</td>
+                    <td className="px-4 py-4 text-right text-slate-200">{player.goldenPoints}</td>
+                    <td className="px-4 py-4 text-right text-slate-200">{player.specialPoints}</td>
+                    <td className="px-4 py-4 text-right text-slate-200">{player.fightPoints}</td>
                     <td className="px-4 py-4 text-right font-bold text-white text-base">{player.total}</td>
                   </tr>
                 );
@@ -204,8 +207,11 @@ export default async function DashboardPage() {
         </div>
 
         {leaderboard.length === 0 && (
-          <div className="px-5 py-12 text-center text-slate-500">No players yet.</div>
+          <div className="px-5 py-12 text-center text-blue-300/50">No players yet.</div>
         )}
+
+        {/* Tricolor bottom bar */}
+        <div className="h-[3px]" style={{ background: "linear-gradient(90deg, #dc2626 0%, #dc2626 33%, rgba(255,255,255,0.15) 33%, rgba(255,255,255,0.15) 66%, #1d4ed8 66%, #1d4ed8 83%, #16a34a 83%, #16a34a 100%)" }} />
       </div>
     </div>
   );

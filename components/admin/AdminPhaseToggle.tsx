@@ -45,7 +45,7 @@ export function AdminPhaseToggle({ phaseId, phaseType, isOpen }: AdminPhaseToggl
           px-4 py-1.5 rounded-lg text-sm font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed
           ${isOpen
             ? "bg-red-500/20 text-red-400 hover:bg-red-500/30 border border-red-500/30"
-            : "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 border border-emerald-500/30"
+            : "bg-blue-500/20 text-blue-400 hover:bg-emerald-500/30 border border-emerald-500/30"
           }
         `}
       >

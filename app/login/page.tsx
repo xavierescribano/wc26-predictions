@@ -42,7 +42,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 pitch-bg">
       {/* Background glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-green-600/10 rounded-full blur-3xl" />
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-700/10 rounded-full blur-3xl" />
       </div>
 
       <div className="relative w-full max-w-md">
@@ -52,13 +52,13 @@ export default function LoginPage() {
           <h1 className="text-3xl font-bold text-white tracking-tight">
             WC26 Predictions
           </h1>
-          <p className="mt-2 text-slate-400 text-sm">
+          <p className="mt-2 text-blue-200/60 text-sm">
             World Cup 2026 Prediction League
           </p>
         </div>
 
         {/* Card */}
-        <div className="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl p-8">
+        <div className="bg-[#0c1630] border border-blue-900/40 rounded-2xl shadow-2xl p-8">
           <h2 className="text-xl font-semibold text-white mb-6">
             Sign in to your account
           </h2>
@@ -139,11 +139,11 @@ export default function LoginPage() {
         </div>
 
         {/* Invite-only note */}
-        <p className="mt-6 text-center text-sm text-slate-500">
+        <p className="mt-6 text-center text-sm text-blue-300/50">
           New to WC26?{" "}
           <Link
             href="/register"
-            className="text-green-400 hover:text-green-300 font-medium transition-colors"
+            className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
           >
             Register via invite only
           </Link>

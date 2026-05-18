@@ -113,7 +113,7 @@ export function AdminResultForm({ matches }: AdminResultFormProps) {
 
   if (matches.length === 0) {
     return (
-      <p className="text-slate-400 text-sm py-4">
+      <p className="text-blue-200/60 text-sm py-4">
         No matches available for the current phase. Open a knockout phase to see matches here.
       </p>
     );
@@ -127,16 +127,16 @@ export function AdminResultForm({ matches }: AdminResultFormProps) {
         const homeTeamOptions = [match.homeTeam, match.awayTeam].filter(Boolean) as Team[];
 
         return (
-          <div key={match.id} className="bg-slate-700/50 rounded-xl p-5">
+          <div key={match.id} className="bg-[#0f1e3d]/60 rounded-xl p-5">
             <div className="flex items-start justify-between gap-4 mb-4">
               <div>
                 <p className="text-white font-semibold">
                   Match #{match.matchNumber}
                   {match.description && (
-                    <span className="text-slate-400 font-normal ml-2 text-sm">({match.description})</span>
+                    <span className="text-blue-200/60 font-normal ml-2 text-sm">({match.description})</span>
                   )}
                 </p>
-                <p className="text-slate-400 text-sm mt-0.5">
+                <p className="text-blue-200/60 text-sm mt-0.5">
                   {match.homeTeam?.flagEmoji} {match.homeTeam?.name ?? "TBD"}
                   {" vs "}
                   {match.awayTeam?.flagEmoji} {match.awayTeam?.name ?? "TBD"}
@@ -152,7 +152,7 @@ export function AdminResultForm({ matches }: AdminResultFormProps) {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {/* Home Score */}
               <div>
-                <label className="block text-xs text-slate-400 mb-1.5">
+                <label className="block text-xs text-blue-200/60 mb-1.5">
                   {match.homeTeam?.name ?? "Home"} Score
                 </label>
                 <input
@@ -161,13 +161,13 @@ export function AdminResultForm({ matches }: AdminResultFormProps) {
                   value={r.homeScore}
                   onChange={(e) => update(match.id, "homeScore", e.target.value)}
                   placeholder="0"
-                  className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  className="w-full bg-[#0c1630] border border-blue-800/40 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                 />
               </div>
 
               {/* Away Score */}
               <div>
-                <label className="block text-xs text-slate-400 mb-1.5">
+                <label className="block text-xs text-blue-200/60 mb-1.5">
                   {match.awayTeam?.name ?? "Away"} Score
                 </label>
                 <input
@@ -176,17 +176,17 @@ export function AdminResultForm({ matches }: AdminResultFormProps) {
                   value={r.awayScore}
                   onChange={(e) => update(match.id, "awayScore", e.target.value)}
                   placeholder="0"
-                  className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  className="w-full bg-[#0c1630] border border-blue-800/40 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                 />
               </div>
 
               {/* Winner (for draws / extra time) */}
               <div className="col-span-2 sm:col-span-1">
-                <label className="block text-xs text-slate-400 mb-1.5">Winner (if KO)</label>
+                <label className="block text-xs text-blue-200/60 mb-1.5">Winner (if KO)</label>
                 <select
                   value={r.winnerId}
                   onChange={(e) => update(match.id, "winnerId", e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  className="w-full bg-[#0c1630] border border-blue-800/40 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                 >
                   <option value="">— None / Draw —</option>
                   {homeTeamOptions.map((team) => (

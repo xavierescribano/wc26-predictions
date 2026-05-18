@@ -20,17 +20,17 @@ export default async function CountriesFightPage() {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">⚔️ Countries Fight</h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">Pick the winner of each matchup — +10 pts for each correct prediction</p>
+          <p className="text-blue-300/50 dark:text-blue-200/60 mt-1">Pick the winner of each matchup — +10 pts for each correct prediction</p>
         </div>
         {totalPoints > 0 && (
-          <span className="shrink-0 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm font-bold">
+          <span className="shrink-0 px-3 py-1.5 rounded-lg bg-red-600/8 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm font-bold">
             +{totalPoints} pts earned
           </span>
         )}
       </div>
 
       {fights.length === 0 ? (
-        <div className="rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] p-10 text-center text-slate-400">
+        <div className="rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] p-10 text-center text-blue-200/60">
           No Countries Fight matchups yet — check back soon!
         </div>
       ) : (

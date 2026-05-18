@@ -34,19 +34,19 @@ export function AdminUserList({ users: initial }: { users: User[] }) {
   }
 
   if (users.length === 0) {
-    return <p className="px-5 py-8 text-slate-500 text-sm text-center">No players yet.</p>;
+    return <p className="px-5 py-8 text-blue-300/50 text-sm text-center">No players yet.</p>;
   }
 
   return (
-    <div className="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
+    <div className="bg-[#0c1630] rounded-2xl border border-blue-900/40 overflow-hidden">
       {/* Mobile list */}
-      <div className="sm:hidden divide-y divide-slate-700">
+      <div className="sm:hidden divide-y divide-blue-900/30">
         {users.map((u) => (
           <div key={u.id} className="px-5 py-4">
             <div className="flex items-start justify-between gap-2">
               <div className="min-w-0">
                 <p className="text-white font-semibold truncate">{u.name}</p>
-                <p className="text-slate-400 text-xs truncate">{u.email}</p>
+                <p className="text-blue-200/60 text-xs truncate">{u.email}</p>
                 {u.goldenPick && (
                   <p className="text-amber-400 text-xs mt-1">
                     Golden: {u.goldenPick.team.flagEmoji} {u.goldenPick.team.name}
@@ -56,7 +56,7 @@ export function AdminUserList({ users: initial }: { users: User[] }) {
               <div className="text-right shrink-0 space-y-1">
                 <p className="text-emerald-400 font-bold">{u.totalPoints} pts</p>
                 <span className={`text-xs px-2 py-0.5 rounded-full ${
-                  u.role === "ADMIN" ? "bg-purple-500/20 text-purple-400" : "bg-slate-700 text-slate-400"
+                  u.role === "ADMIN" ? "bg-purple-500/20 text-purple-400" : "bg-[#0f1e3d] text-blue-200/60"
                 }`}>{u.role}</span>
                 {u.role !== "ADMIN" && (
                   confirmId === u.id ? (
@@ -70,7 +70,7 @@ export function AdminUserList({ users: initial }: { users: User[] }) {
                       </button>
                       <button
                         onClick={() => setConfirmId(null)}
-                        className="px-2 py-1 rounded text-xs bg-slate-700 hover:bg-slate-600 text-slate-300 transition-colors"
+                        className="px-2 py-1 rounded text-xs bg-[#0f1e3d] hover:bg-[#162040] text-slate-200 transition-colors"
                       >
                         Cancel
                       </button>
@@ -94,7 +94,7 @@ export function AdminUserList({ users: initial }: { users: User[] }) {
       <div className="hidden sm:block overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left text-xs text-slate-400 uppercase tracking-wider border-b border-slate-700">
+            <tr className="text-left text-xs text-blue-200/60 uppercase tracking-wider border-b border-blue-900/40">
               <th className="px-5 py-3">Name</th>
               <th className="px-5 py-3">Email</th>
               <th className="px-5 py-3">Role</th>
@@ -103,34 +103,34 @@ export function AdminUserList({ users: initial }: { users: User[] }) {
               <th className="px-5 py-3" />
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-700">
+          <tbody className="divide-y divide-blue-900/30">
             {users.map((u) => (
-              <tr key={u.id} className="hover:bg-slate-700/40 transition-colors">
+              <tr key={u.id} className="hover:bg-[#0f1e3d]/50 transition-colors">
                 <td className="px-5 py-4 font-medium text-white">{u.name}</td>
-                <td className="px-5 py-4 text-slate-400">{u.email}</td>
+                <td className="px-5 py-4 text-blue-200/60">{u.email}</td>
                 <td className="px-5 py-4">
                   <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${
-                    u.role === "ADMIN" ? "bg-purple-500/20 text-purple-400" : "bg-slate-700 text-slate-400"
+                    u.role === "ADMIN" ? "bg-purple-500/20 text-purple-400" : "bg-[#0f1e3d] text-blue-200/60"
                   }`}>{u.role}</span>
                 </td>
                 <td className="px-5 py-4 text-right font-bold text-emerald-400">{u.totalPoints}</td>
-                <td className="px-5 py-4 text-slate-300">
+                <td className="px-5 py-4 text-slate-200">
                   {u.goldenPick ? (
                     <span>
                       {u.goldenPick.team.flagEmoji} {u.goldenPick.team.name}
-                      <span className="text-slate-500 ml-2 text-xs">
+                      <span className="text-blue-300/50 ml-2 text-xs">
                         ({u.goldenPick.changes} change{u.goldenPick.changes !== 1 ? "s" : ""})
                       </span>
                     </span>
                   ) : (
-                    <span className="text-slate-600">—</span>
+                    <span className="text-blue-300/70">—</span>
                   )}
                 </td>
                 <td className="px-5 py-4 text-right">
                   {u.role !== "ADMIN" && (
                     confirmId === u.id ? (
                       <div className="flex items-center justify-end gap-2">
-                        <span className="text-xs text-slate-400">Remove {u.name}?</span>
+                        <span className="text-xs text-blue-200/60">Remove {u.name}?</span>
                         <button
                           onClick={() => handleRemove(u.id)}
                           disabled={removing === u.id}
@@ -140,7 +140,7 @@ export function AdminUserList({ users: initial }: { users: User[] }) {
                         </button>
                         <button
                           onClick={() => setConfirmId(null)}
-                          className="px-3 py-1 rounded-lg text-xs bg-slate-700 hover:bg-slate-600 text-slate-300 transition-colors"
+                          className="px-3 py-1 rounded-lg text-xs bg-[#0f1e3d] hover:bg-[#162040] text-slate-200 transition-colors"
                         >
                           Cancel
                         </button>

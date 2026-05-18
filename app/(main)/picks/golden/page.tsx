@@ -25,7 +25,7 @@ export default async function GoldenPickPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-white">Golden Pick</h1>
-        <p className="text-slate-400 text-sm mt-1">
+        <p className="text-blue-200/60 text-sm mt-1">
           Pick the team you think will win the World Cup. Worth up to{" "}
           <span className="text-emerald-400 font-semibold">50 points</span> — but changing your
           pick costs 10 points each time.

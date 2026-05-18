@@ -50,7 +50,7 @@ export default async function GroupPicksPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Group Stage Picks</h1>
-          <p className="text-slate-400 text-sm mt-1">
+          <p className="text-blue-200/60 text-sm mt-1">
             Predict the final standings for all 12 groups
           </p>
         </div>
@@ -58,8 +58,8 @@ export default async function GroupPicksPage() {
           <span
             className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${
               isOpen
-                ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                : "bg-slate-700 text-slate-400 border border-slate-600"
+                ? "bg-blue-500/20 text-blue-400 border border-emerald-500/30"
+                : "bg-[#0f1e3d] text-blue-200/60 border border-blue-800/40"
             }`}
           >
             <span

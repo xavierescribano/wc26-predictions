@@ -87,9 +87,9 @@ function MatchCard({ match, draft, existingPick, isOpen, isFinal, saveState, onP
     const pick = existingPick;
     const pts = pick?.pointsEarned;
     return (
-      <div className="rounded-xl bg-slate-800 border border-slate-700 overflow-hidden">
-        <div className="px-4 py-2.5 bg-slate-700/40 border-b border-slate-700 flex items-center justify-between">
-          <span className="text-xs font-bold text-slate-400 tracking-wider uppercase">{label}</span>
+      <div className="rounded-xl bg-[#0c1630] border border-blue-900/40 overflow-hidden">
+        <div className="px-4 py-2.5 bg-[#0f1e3d]/50 border-b border-blue-900/40 flex items-center justify-between">
+          <span className="text-xs font-bold text-blue-200/60 tracking-wider uppercase">{label}</span>
           {pts != null && <span className="text-xs font-semibold text-emerald-400">{pts} pts</span>}
         </div>
         <div className="p-4 space-y-3">
@@ -101,18 +101,18 @@ function MatchCard({ match, draft, existingPick, isOpen, isFinal, saveState, onP
                 const userPickedWrong = isUserPick && resultKnown && !isWinner;
                 return (
                   <div key={team.id} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 border transition-colors ${
-                    isWinner ? "bg-emerald-500/10 border-emerald-500/30"
+                    isWinner ? "bg-red-600/8 border-emerald-500/30"
                     : userPickedWrong ? "bg-red-500/10 border-red-500/30"
-                    : "bg-slate-700/30 border-transparent"
+                    : "bg-[#0f1e3d]/40 border-transparent"
                   }`}>
                     <span className="text-xl leading-none">{team.flagEmoji ?? "🏳️"}</span>
-                    <span className={`text-sm font-medium flex-1 ${isWinner ? "text-emerald-300" : userPickedWrong ? "text-red-400" : "text-slate-300"}`}>
+                    <span className={`text-sm font-medium flex-1 ${isWinner ? "text-emerald-300" : userPickedWrong ? "text-red-400" : "text-slate-200"}`}>
                       {team.name}
                     </span>
                     <div className="flex items-center gap-1.5">
                       {isUserPick && (
                         <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${
-                          resultKnown ? (isWinner ? "bg-emerald-500/20 text-emerald-400" : "bg-red-500/20 text-red-400") : "bg-slate-600 text-slate-400"
+                          resultKnown ? (isWinner ? "bg-blue-500/20 text-blue-400" : "bg-red-500/20 text-red-400") : "bg-slate-600 text-blue-200/60"
                         }`}>Your pick</span>
                       )}
                       {isWinner && (
@@ -128,15 +128,15 @@ function MatchCard({ match, draft, existingPick, isOpen, isFinal, saveState, onP
                 );
               })}
               {isFinal && pick && (
-                <div className="pt-1 text-xs text-slate-500 text-center">
-                  Your predicted score: <span className="text-slate-300 font-mono">{pick.predictedHomeScore ?? "–"} – {pick.predictedAwayScore ?? "–"}</span>
+                <div className="pt-1 text-xs text-blue-300/50 text-center">
+                  Your predicted score: <span className="text-slate-200 font-mono">{pick.predictedHomeScore ?? "–"} – {pick.predictedAwayScore ?? "–"}</span>
                 </div>
               )}
             </>
           ) : (
-            <div className="text-center text-slate-600 text-sm py-2">Teams TBD</div>
+            <div className="text-center text-blue-300/70 text-sm py-2">Teams TBD</div>
           )}
-          {!pick && <p className="text-center text-xs text-slate-600 italic pt-1">No pick made</p>}
+          {!pick && <p className="text-center text-xs text-blue-300/70 italic pt-1">No pick made</p>}
         </div>
       </div>
     );
@@ -144,11 +144,11 @@ function MatchCard({ match, draft, existingPick, isOpen, isFinal, saveState, onP
 
   // Editable card
   return (
-    <div className={`rounded-xl bg-slate-800 border overflow-hidden transition-colors ${pickedTeamId ? "border-emerald-500/40" : "border-slate-700"}`}>
-      <div className="px-4 py-2.5 bg-slate-700/40 border-b border-slate-700 flex items-center justify-between">
-        <span className="text-xs font-bold text-slate-400 tracking-wider uppercase">{label}</span>
+    <div className={`rounded-xl bg-[#0c1630] border overflow-hidden transition-colors ${pickedTeamId ? "border-emerald-500/40" : "border-blue-900/40"}`}>
+      <div className="px-4 py-2.5 bg-[#0f1e3d]/50 border-b border-blue-900/40 flex items-center justify-between">
+        <span className="text-xs font-bold text-blue-200/60 tracking-wider uppercase">{label}</span>
         {saveState === "saving" && (
-          <span className="text-xs text-slate-400 flex items-center gap-1">
+          <span className="text-xs text-blue-200/60 flex items-center gap-1">
             <svg className="animate-spin w-3 h-3" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -179,12 +179,12 @@ function MatchCard({ match, draft, existingPick, isOpen, isFinal, saveState, onP
                   className={`w-full flex items-center gap-3 rounded-lg px-3 py-3 border text-left transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
                     isPicked
                       ? "bg-emerald-600/20 border-emerald-500 shadow-emerald-500/10 shadow-md"
-                      : "bg-slate-700/30 border-slate-600 hover:border-slate-500 hover:bg-slate-700/50"
+                      : "bg-[#0f1e3d]/40 border-blue-800/40 hover:border-slate-500 hover:bg-[#0f1e3d]/60"
                   }`}
                 >
                   <span className="text-xl leading-none">{team.flagEmoji ?? "🏳️"}</span>
                   <span className={`text-sm font-medium flex-1 ${isPicked ? "text-emerald-300" : "text-slate-200"}`}>{team.name}</span>
-                  <span className="text-xs text-slate-500 font-mono">{team.shortCode}</span>
+                  <span className="text-xs text-blue-300/50 font-mono">{team.shortCode}</span>
                   <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${isPicked ? "border-emerald-500 bg-emerald-500" : "border-slate-500"}`}>
                     {isPicked && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
                   </span>
@@ -194,31 +194,31 @@ function MatchCard({ match, draft, existingPick, isOpen, isFinal, saveState, onP
 
             {isFinal && pickedTeamId && (
               <div className="pt-1 space-y-2">
-                <p className="text-xs text-slate-400 font-medium">Predict final score (optional)</p>
+                <p className="text-xs text-blue-200/60 font-medium">Predict final score (optional)</p>
                 <div className="flex items-center gap-2">
                   <div className="flex-1">
-                    <label className="text-xs text-slate-500 mb-1 block">{match.homeTeam!.shortCode}</label>
+                    <label className="text-xs text-blue-300/50 mb-1 block">{match.homeTeam!.shortCode}</label>
                     <input
                       type="number" min="0" max="99" placeholder="0"
                       value={draft?.homeScore ?? ""}
                       onChange={(e) => onScore(match.id, "home", e.target.value)}
-                      className="w-full bg-slate-700 border border-slate-600 rounded-lg text-white text-sm text-center py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      className="w-full bg-[#0f1e3d] border border-blue-800/40 rounded-lg text-white text-sm text-center py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     />
                   </div>
-                  <span className="text-slate-500 text-lg font-bold pt-5">–</span>
+                  <span className="text-blue-300/50 text-lg font-bold pt-5">–</span>
                   <div className="flex-1">
-                    <label className="text-xs text-slate-500 mb-1 block">{match.awayTeam!.shortCode}</label>
+                    <label className="text-xs text-blue-300/50 mb-1 block">{match.awayTeam!.shortCode}</label>
                     <input
                       type="number" min="0" max="99" placeholder="0"
                       value={draft?.awayScore ?? ""}
                       onChange={(e) => onScore(match.id, "away", e.target.value)}
-                      className="w-full bg-slate-700 border border-slate-600 rounded-lg text-white text-sm text-center py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      className="w-full bg-[#0f1e3d] border border-blue-800/40 rounded-lg text-white text-sm text-center py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     />
                   </div>
                 </div>
                 <button
                   onClick={() => onPick(match.id, pickedTeamId)}
-                  className="w-full py-1.5 text-xs bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg transition-colors"
+                  className="w-full py-1.5 text-xs bg-[#0f1e3d] hover:bg-[#162040] text-slate-200 rounded-lg transition-colors"
                 >
                   Save score prediction
                 </button>
@@ -226,7 +226,7 @@ function MatchCard({ match, draft, existingPick, isOpen, isFinal, saveState, onP
             )}
           </>
         ) : (
-          <div className="text-center text-slate-600 text-sm py-4">Teams not yet determined</div>
+          <div className="text-center text-blue-300/70 text-sm py-4">Teams not yet determined</div>
         )}
       </div>
     </div>
@@ -292,7 +292,7 @@ export function KnockoutPickGrid({ matches, userPicks, isOpen, isFinal }: Knocko
   return (
     <div className="space-y-6">
       {isOpen && (
-        <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3 text-sm text-emerald-300 flex items-center gap-2">
+        <div className="bg-red-600/8 border border-emerald-500/20 rounded-xl px-4 py-3 text-sm text-emerald-300 flex items-center gap-2">
           <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
           </svg>
@@ -317,7 +317,7 @@ export function KnockoutPickGrid({ matches, userPicks, isOpen, isFinal }: Knocko
       </div>
 
       {isOpen && availableCount > 0 && (
-        <p className="text-center text-slate-500 text-sm">
+        <p className="text-center text-blue-300/50 text-sm">
           {pickedCount}/{availableCount} matches picked
         </p>
       )}

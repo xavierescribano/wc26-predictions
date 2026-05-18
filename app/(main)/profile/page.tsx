@@ -110,7 +110,7 @@ export default async function ProfilePage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="bg-gradient-to-br from-slate-800 to-slate-800/50 border border-slate-700 rounded-2xl p-6">
+      <div className="bg-gradient-to-br from-slate-800 to-slate-800/50 border border-blue-900/40 rounded-2xl p-6">
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <div className="w-14 h-14 rounded-full bg-emerald-500/20 border-2 border-emerald-500/50 flex items-center justify-center">
             <span className="text-emerald-400 text-2xl font-black">
@@ -119,32 +119,32 @@ export default async function ProfilePage() {
           </div>
           <div className="flex-1">
             <h1 className="text-2xl font-bold text-white">{u.name ?? "Unnamed Player"}</h1>
-            <p className="text-slate-400 text-sm">{u.email}</p>
+            <p className="text-blue-200/60 text-sm">{u.email}</p>
           </div>
           <div className="flex gap-6">
             <div className="text-center">
               <p className="text-3xl font-black text-emerald-400">{totalPoints}</p>
-              <p className="text-xs text-slate-400 uppercase tracking-wider">Points</p>
+              <p className="text-xs text-blue-200/60 uppercase tracking-wider">Points</p>
             </div>
             <div className="text-center">
               <p className="text-3xl font-black text-white">#{rank}</p>
-              <p className="text-xs text-slate-400 uppercase tracking-wider">Rank</p>
+              <p className="text-xs text-blue-200/60 uppercase tracking-wider">Rank</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Points Breakdown */}
-      <div className="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
-        <div className="px-5 py-4 border-b border-slate-700">
+      <div className="bg-[#0c1630] rounded-2xl border border-blue-900/40 overflow-hidden">
+        <div className="px-5 py-4 border-b border-blue-900/40">
           <h2 className="text-white font-semibold text-lg">Points Breakdown</h2>
         </div>
-        <div className="divide-y divide-slate-700">
+        <div className="divide-y divide-blue-900/30">
           {/* Group Stage */}
           <div className="flex items-center justify-between px-5 py-4">
             <div>
               <p className="text-white font-medium">Group Stage</p>
-              <p className="text-slate-400 text-xs">{groupPredictions.length} groups predicted</p>
+              <p className="text-blue-200/60 text-xs">{groupPredictions.length} groups predicted</p>
             </div>
             <span className="font-bold text-emerald-400 text-lg">{groupTotal} pts</span>
           </div>
@@ -157,9 +157,9 @@ export default async function ProfilePage() {
               <div key={phaseType} className="flex items-center justify-between px-5 py-4">
                 <div>
                   <p className="text-white font-medium">{PHASE_LABELS[phaseType]}</p>
-                  <p className="text-slate-400 text-xs">{picksForPhase.length} pick{picksForPhase.length !== 1 ? "s" : ""}</p>
+                  <p className="text-blue-200/60 text-xs">{picksForPhase.length} pick{picksForPhase.length !== 1 ? "s" : ""}</p>
                 </div>
-                <span className={`font-bold text-lg ${pts > 0 ? "text-emerald-400" : "text-slate-500"}`}>{pts} pts</span>
+                <span className={`font-bold text-lg ${pts > 0 ? "text-emerald-400" : "text-blue-300/50"}`}>{pts} pts</span>
               </div>
             );
           })}
@@ -169,20 +169,20 @@ export default async function ProfilePage() {
             <div>
               <p className="text-white font-medium">Golden Pick</p>
               {goldenPick ? (
-                <p className="text-slate-400 text-xs">
+                <p className="text-blue-200/60 text-xs">
                   {goldenPick.team.flagEmoji} {goldenPick.team.name} · {goldenPick.changes} change{goldenPick.changes !== 1 ? "s" : ""} used
                 </p>
               ) : (
-                <p className="text-slate-400 text-xs">No pick yet</p>
+                <p className="text-blue-200/60 text-xs">No pick yet</p>
               )}
             </div>
-            <span className={`font-bold text-lg ${(goldenPick?.pointsEarned ?? 0) > 0 ? "text-amber-400" : "text-slate-500"}`}>
+            <span className={`font-bold text-lg ${(goldenPick?.pointsEarned ?? 0) > 0 ? "text-amber-400" : "text-blue-300/50"}`}>
               {goldenPick?.pointsEarned ?? 0} pts
             </span>
           </div>
 
           {/* Total */}
-          <div className="flex items-center justify-between px-5 py-4 bg-slate-700/50">
+          <div className="flex items-center justify-between px-5 py-4 bg-[#0f1e3d]/60">
             <p className="text-white font-bold text-lg">Total</p>
             <span className="font-black text-xl text-emerald-400">{totalPoints} pts</span>
           </div>
@@ -191,20 +191,20 @@ export default async function ProfilePage() {
 
       {/* Group Predictions */}
       {groupPredictions.length > 0 && (
-        <div className="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
-          <div className="px-5 py-4 border-b border-slate-700">
+        <div className="bg-[#0c1630] rounded-2xl border border-blue-900/40 overflow-hidden">
+          <div className="px-5 py-4 border-b border-blue-900/40">
             <h2 className="text-white font-semibold text-lg">Group Predictions</h2>
-            <p className="text-slate-400 text-sm mt-0.5">Final standings you predicted for each group</p>
+            <p className="text-blue-200/60 text-sm mt-0.5">Final standings you predicted for each group</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
             {groupPredictions.map((gp: any) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
-              <div key={gp.id} className="bg-slate-700/50 rounded-xl p-4">
+              <div key={gp.id} className="bg-[#0f1e3d]/60 rounded-xl p-4">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-emerald-400 font-bold text-sm uppercase tracking-wider">
                     Group {gp.groupLetter}
                   </span>
                   {gp.pointsEarned != null && (
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400">
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400">
                       {gp.pointsEarned} pts
                     </span>
                   )}
@@ -212,7 +212,7 @@ export default async function ProfilePage() {
                 <ol className="space-y-1.5">
                   {[gp.position1, gp.position2, gp.position3, gp.position4].map((team: any, idx: number) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
                     <li key={idx} className="flex items-center gap-2 text-sm">
-                      <span className="w-5 h-5 rounded-full bg-slate-600 flex items-center justify-center text-xs text-slate-400 font-bold flex-shrink-0">
+                      <span className="w-5 h-5 rounded-full bg-slate-600 flex items-center justify-center text-xs text-blue-200/60 font-bold flex-shrink-0">
                         {idx + 1}
                       </span>
                       {team.flagEmoji && <span>{team.flagEmoji}</span>}
@@ -228,20 +228,20 @@ export default async function ProfilePage() {
 
       {/* Recent Knockout Picks */}
       {knockoutPicks.length > 0 && (
-        <div className="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
-          <div className="px-5 py-4 border-b border-slate-700">
+        <div className="bg-[#0c1630] rounded-2xl border border-blue-900/40 overflow-hidden">
+          <div className="px-5 py-4 border-b border-blue-900/40">
             <h2 className="text-white font-semibold text-lg">Knockout Picks</h2>
           </div>
-          <div className="divide-y divide-slate-700">
+          <div className="divide-y divide-blue-900/30">
             {knockoutPicks.map((kp: any) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
               <div key={kp.id} className="px-5 py-4 flex items-center gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-700 text-slate-400">
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#0f1e3d] text-blue-200/60">
                       {PHASE_LABELS[kp.match.phase.type as string] ?? kp.match.phase.type}
                     </span>
                   </div>
-                  <p className="text-slate-400 text-sm">
+                  <p className="text-blue-200/60 text-sm">
                     {kp.match.homeTeam?.flagEmoji} {kp.match.homeTeam?.name ?? "TBD"}
                     {" vs "}
                     {kp.match.awayTeam?.flagEmoji} {kp.match.awayTeam?.name ?? "TBD"}
@@ -249,13 +249,13 @@ export default async function ProfilePage() {
                   <p className="text-white font-medium text-sm mt-0.5">
                     Pick: {kp.pickedTeam.flagEmoji} {kp.pickedTeam.name}
                     {kp.predictedHomeScore != null && kp.predictedAwayScore != null && (
-                      <span className="text-slate-400 ml-2">({kp.predictedHomeScore}–{kp.predictedAwayScore})</span>
+                      <span className="text-blue-200/60 ml-2">({kp.predictedHomeScore}–{kp.predictedAwayScore})</span>
                     )}
                   </p>
                 </div>
                 <div className="text-right flex-shrink-0">
                   {kp.isCorrect === true && (
-                    <span className="text-xs font-bold px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-400 block mb-1">
+                    <span className="text-xs font-bold px-2 py-1 rounded-full bg-blue-500/20 text-blue-400 block mb-1">
                       CORRECT
                     </span>
                   )}
@@ -267,7 +267,7 @@ export default async function ProfilePage() {
                   {kp.pointsEarned != null ? (
                     <span className="font-bold text-white">{kp.pointsEarned} pts</span>
                   ) : (
-                    <span className="text-slate-500 text-sm">Pending</span>
+                    <span className="text-blue-300/50 text-sm">Pending</span>
                   )}
                 </div>
               </div>
@@ -277,7 +277,7 @@ export default async function ProfilePage() {
       )}
 
       {groupPredictions.length === 0 && knockoutPicks.length === 0 && (
-        <div className="text-center py-16 text-slate-500">
+        <div className="text-center py-16 text-blue-300/50">
           <p className="text-lg">No picks yet.</p>
           <p className="text-sm mt-2">Come back when betting phases open.</p>
         </div>

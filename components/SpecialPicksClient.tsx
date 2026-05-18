@@ -40,7 +40,7 @@ function TopScorerPlayerCard({ groupStageOpen, initial }: { groupStageOpen: bool
       <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--card-border)]">
         <div>
           <h2 className="font-bold text-slate-900 dark:text-white">🥇 Top Scorer Player</h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">+50 pts if correct · Locked once submitted</p>
+          <p className="text-xs text-blue-300/50 dark:text-blue-200/60 mt-0.5">+50 pts if correct · Locked once submitted</p>
         </div>
         {locked && (
           <span className="text-xs font-semibold px-2 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
@@ -53,7 +53,7 @@ function TopScorerPlayerCard({ groupStageOpen, initial }: { groupStageOpen: bool
           <div className="flex items-center gap-3 py-2">
             <span className="text-2xl">⚽</span>
             <span className="text-slate-900 dark:text-white font-semibold">{initial!.playerName}</span>
-            <span className="ml-auto text-xs text-slate-400">Your pick is final</span>
+            <span className="ml-auto text-xs text-blue-200/60">Your pick is final</span>
           </div>
         ) : groupStageOpen ? (
           <div className="space-y-3">
@@ -69,10 +69,10 @@ function TopScorerPlayerCard({ groupStageOpen, initial }: { groupStageOpen: bool
               className="btn-primary w-full">
               {status === "saving" ? "Saving…" : status === "saved" ? "✅ Submitted!" : "Lock in my pick"}
             </button>
-            <p className="text-xs text-slate-400 text-center">⚠️ This cannot be changed once submitted</p>
+            <p className="text-xs text-blue-200/60 text-center">⚠️ This cannot be changed once submitted</p>
           </div>
         ) : (
-          <p className="text-slate-400 text-sm italic">Not submitted — Group Stage is closed.</p>
+          <p className="text-blue-200/60 text-sm italic">Not submitted — Group Stage is closed.</p>
         )}
       </div>
     </div>
@@ -107,7 +107,7 @@ function TopScorerTeamCard({ groupStageOpen, teams, initial }: { groupStageOpen:
       <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--card-border)]">
         <div>
           <h2 className="font-bold text-slate-900 dark:text-white">🏆 Top Scoring Team</h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">+25 pts if correct · Locked once submitted</p>
+          <p className="text-xs text-blue-300/50 dark:text-blue-200/60 mt-0.5">+25 pts if correct · Locked once submitted</p>
         </div>
         {locked && (
           <span className="text-xs font-semibold px-2 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
@@ -120,7 +120,7 @@ function TopScorerTeamCard({ groupStageOpen, teams, initial }: { groupStageOpen:
           <div className="flex items-center gap-3 py-2">
             <span className="text-2xl">{initial!.teamFlag ?? "🏳️"}</span>
             <span className="text-slate-900 dark:text-white font-semibold">{initial!.teamName}</span>
-            <span className="ml-auto text-xs text-slate-400">Your pick is final</span>
+            <span className="ml-auto text-xs text-blue-200/60">Your pick is final</span>
           </div>
         ) : groupStageOpen ? (
           <div className="space-y-3">
@@ -145,10 +145,10 @@ function TopScorerTeamCard({ groupStageOpen, teams, initial }: { groupStageOpen:
               className="btn-primary w-full">
               {status === "saving" ? "Saving…" : status === "saved" ? "✅ Submitted!" : "Lock in my pick"}
             </button>
-            <p className="text-xs text-slate-400 text-center">⚠️ This cannot be changed once submitted</p>
+            <p className="text-xs text-blue-200/60 text-center">⚠️ This cannot be changed once submitted</p>
           </div>
         ) : (
-          <p className="text-slate-400 text-sm italic">Not submitted — Group Stage is closed.</p>
+          <p className="text-blue-200/60 text-sm italic">Not submitted — Group Stage is closed.</p>
         )}
       </div>
     </div>
@@ -195,7 +195,7 @@ function GoldenPickCard({ teams, initial }: { teams: Team[]; initial: { teamId: 
       <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--card-border)]">
         <div>
           <h2 className="font-bold text-slate-900 dark:text-white">🌟 Golden Pick — World Cup Winner</h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          <p className="text-xs text-blue-300/50 dark:text-blue-200/60 mt-0.5">
             Currently worth <span className="text-emerald-500 font-bold">+{reward} pts</span> · Changes cost −10 pts
           </p>
         </div>
@@ -207,7 +207,7 @@ function GoldenPickCard({ teams, initial }: { teams: Team[]; initial: { teamId: 
       </div>
       <div className="p-5 space-y-4">
         {currentPick && (
-          <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+          <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-red-600/8 border border-emerald-500/20">
             <span className="text-xl">{currentPick.teamFlag ?? "🏳️"}</span>
             <span className="text-emerald-700 dark:text-emerald-300 font-semibold">{currentPick.teamName}</span>
             <span className="ml-auto text-xs text-emerald-600 dark:text-emerald-400">Current pick</span>
@@ -237,12 +237,12 @@ function GoldenPickCard({ teams, initial }: { teams: Team[]; initial: { teamId: 
         {showConfirm && (
           <div className="rounded-xl bg-orange-500/10 border border-orange-500/30 p-4 space-y-3">
             <p className="text-sm font-semibold text-orange-600 dark:text-orange-400">⚠️ Confirm change</p>
-            <p className="text-sm text-slate-600 dark:text-slate-300">
+            <p className="text-sm text-blue-300/70 dark:text-slate-200">
               Changing your Golden Pick will reduce your potential reward from <strong>+{reward} pts</strong> to <strong>+{nextReward} pts</strong>.
             </p>
             <div className="flex gap-2">
               <button onClick={doSave} className="flex-1 py-2 text-sm font-semibold rounded-lg bg-orange-500 hover:bg-orange-400 text-white transition-colors">Yes, change it</button>
-              <button onClick={() => setShowConfirm(false)} className="flex-1 py-2 text-sm font-semibold rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">Cancel</button>
+              <button onClick={() => setShowConfirm(false)} className="flex-1 py-2 text-sm font-semibold rounded-lg bg-slate-200 dark:bg-[#0f1e3d] text-slate-700 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-[#162040] transition-colors">Cancel</button>
             </div>
           </div>
         )}
@@ -258,7 +258,7 @@ function GoldenPickCard({ teams, initial }: { teams: Team[]; initial: { teamId: 
           <p className="text-center text-emerald-500 text-sm">✅ Saved! Current reward: +{Math.max(0, 50 - (currentPick?.changes ?? 0) * 10)} pts</p>
         )}
 
-        <p className="text-xs text-slate-400 text-center">
+        <p className="text-xs text-blue-200/60 text-center">
           You can change this at any time — but each change costs −10 pts from the potential reward.
         </p>
       </div>

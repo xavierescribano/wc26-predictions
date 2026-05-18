@@ -111,7 +111,7 @@ export function AdminGroupResultForm({ teams, existingResults }: AdminGroupResul
                 ? "bg-emerald-600 text-white"
                 : hasResult(g)
                 ? "bg-slate-600 text-emerald-400 border border-emerald-600"
-                : "bg-slate-700 text-slate-300 hover:bg-slate-600"
+                : "bg-[#0f1e3d] text-slate-200 hover:bg-[#162040]"
             }`}
           >
             {g}
@@ -120,17 +120,17 @@ export function AdminGroupResultForm({ teams, existingResults }: AdminGroupResul
       </div>
 
       {/* Position selectors */}
-      <div className="bg-slate-700 rounded-xl p-4 space-y-3">
+      <div className="bg-[#0f1e3d] rounded-xl p-4 space-y-3">
         <h3 className="font-semibold text-slate-200">Group {activeGroup} Final Standings</h3>
         {[1, 2, 3, 4].map((pos) => (
           <div key={pos} className="flex items-center gap-3">
-            <span className="w-8 h-8 rounded-full bg-slate-600 flex items-center justify-center text-sm font-bold text-slate-300">
+            <span className="w-8 h-8 rounded-full bg-slate-600 flex items-center justify-center text-sm font-bold text-slate-200">
               {pos}
             </span>
             <select
               value={current[pos - 1]}
               onChange={(e) => handlePositionChange(pos - 1, e.target.value)}
-              className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-emerald-500"
+              className="flex-1 bg-[#0c1630] border border-blue-800/40 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-emerald-500"
             >
               <option value="">— Select team —</option>
               {groupTeams.map((t) => (

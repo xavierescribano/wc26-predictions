@@ -45,14 +45,14 @@ export function AdminResetButton() {
           <span className="text-2xl">⚠️</span>
           <div>
             <p className="font-bold text-red-400 text-sm">This will permanently delete:</p>
-            <ul className="text-slate-300 text-sm mt-2 space-y-1 list-disc list-inside">
+            <ul className="text-slate-200 text-sm mt-2 space-y-1 list-disc list-inside">
               <li>All group predictions</li>
               <li>All knockout picks</li>
               <li>All golden picks</li>
               <li>All entered match results</li>
               <li>All group stage results</li>
             </ul>
-            <p className="text-slate-400 text-sm mt-2">
+            <p className="text-blue-200/60 text-sm mt-2">
               Users and teams are <span className="text-white font-semibold">kept</span>. All phases will be closed.
             </p>
           </div>
@@ -67,7 +67,7 @@ export function AdminResetButton() {
           </button>
           <button
             onClick={() => { setStep("idle"); setError(null); }}
-            className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg font-semibold text-sm transition-colors"
+            className="px-4 py-2 bg-[#0f1e3d] hover:bg-[#162040] text-slate-200 rounded-lg font-semibold text-sm transition-colors"
           >
             Cancel
           </button>
@@ -78,7 +78,7 @@ export function AdminResetButton() {
 
   if (step === "loading") {
     return (
-      <div className="flex items-center gap-2 text-slate-400 text-sm">
+      <div className="flex items-center gap-2 text-blue-200/60 text-sm">
         <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
@@ -94,7 +94,7 @@ export function AdminResetButton() {
       ✅ Competition reset. All picks cleared, all phases closed.
       <button
         onClick={() => setStep("idle")}
-        className="text-slate-400 hover:text-slate-300 underline text-xs ml-1"
+        className="text-blue-200/60 hover:text-slate-200 underline text-xs ml-1"
       >
         dismiss
       </button>

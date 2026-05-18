@@ -72,7 +72,7 @@ export default async function KnockoutPicksPage({ params }: PageProps) {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">{label} Picks</h1>
-          <p className="text-slate-400 text-sm mt-1">
+          <p className="text-blue-200/60 text-sm mt-1">
             Pick the winner for each match
             {phaseType === PhaseType.FINAL && " and predict the score"}
           </p>
@@ -81,8 +81,8 @@ export default async function KnockoutPicksPage({ params }: PageProps) {
           <span
             className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${
               isOpen
-                ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                : "bg-slate-700 text-slate-400 border border-slate-600"
+                ? "bg-blue-500/20 text-blue-400 border border-emerald-500/30"
+                : "bg-[#0f1e3d] text-blue-200/60 border border-blue-800/40"
             }`}
           >
             <span
@@ -100,7 +100,7 @@ export default async function KnockoutPicksPage({ params }: PageProps) {
       )}
 
       {phase.matches.length === 0 ? (
-        <div className="rounded-lg bg-slate-800 border border-slate-700 p-8 text-center text-slate-400">
+        <div className="rounded-lg bg-[#0c1630] border border-blue-900/40 p-8 text-center text-blue-200/60">
           No matches have been scheduled for this phase yet.
         </div>
       ) : (

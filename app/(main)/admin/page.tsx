@@ -80,7 +80,7 @@ export default async function AdminPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-white">Admin Panel</h1>
-          <p className="text-slate-400 mt-1">Manage phases, invite players, enter results</p>
+          <p className="text-blue-200/60 mt-1">Manage phases, invite players, enter results</p>
         </div>
         <AdminResetButton />
       </div>
@@ -91,7 +91,7 @@ export default async function AdminPage() {
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
           Phase Management
         </h2>
-        <div className="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden divide-y divide-slate-700">
+        <div className="bg-[#0c1630] rounded-2xl border border-blue-900/40 overflow-hidden divide-y divide-blue-900/30">
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {(phases as any[]).map((phase: any) => (
             <div key={phase.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-4">
@@ -99,23 +99,23 @@ export default async function AdminPage() {
                 <span
                   className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold ${
                     phase.isOpen
-                      ? "bg-emerald-500/20 text-emerald-400"
-                      : "bg-slate-700 text-slate-400"
+                      ? "bg-blue-500/20 text-blue-400"
+                      : "bg-[#0f1e3d] text-blue-200/60"
                   }`}
                 >
-                  {phase.isOpen && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />}
+                  {phase.isOpen && <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />}
                   {phase.isOpen ? "OPEN" : "CLOSED"}
                 </span>
                 <div>
                   <p className="text-white font-medium">{PHASE_LABELS[phase.type] ?? phase.type}</p>
-                  <p className="text-slate-500 text-xs">Order #{phase.order}</p>
+                  <p className="text-blue-300/50 text-xs">Order #{phase.order}</p>
                 </div>
               </div>
               <AdminPhaseToggle phaseId={phase.id} phaseType={phase.type} isOpen={phase.isOpen} />
             </div>
           ))}
           {phases.length === 0 && (
-            <p className="px-5 py-8 text-slate-500 text-sm text-center">No phases found. Run the seed script.</p>
+            <p className="px-5 py-8 text-blue-300/50 text-sm text-center">No phases found. Run the seed script.</p>
           )}
         </div>
       </section>
@@ -126,8 +126,8 @@ export default async function AdminPage() {
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
           Invite Players
         </h2>
-        <div className="bg-slate-800 rounded-2xl border border-slate-700 p-5">
-          <p className="text-slate-400 text-sm mb-4">
+        <div className="bg-[#0c1630] rounded-2xl border border-blue-900/40 p-5">
+          <p className="text-blue-200/60 text-sm mb-4">
             Enter an email address to generate an invite link. The player can use the link to create their account.
           </p>
           <AdminInviteForm />
@@ -149,10 +149,10 @@ export default async function AdminPage() {
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
           Group Stage Results
         </h2>
-        <p className="text-slate-400 text-sm mb-4">
+        <p className="text-blue-200/60 text-sm mb-4">
           Enter the official final standings for each group. This will automatically score all player predictions.
         </p>
-        <div className="bg-slate-800 rounded-2xl border border-slate-700 p-5">
+        <div className="bg-[#0c1630] rounded-2xl border border-blue-900/40 p-5">
           <AdminGroupResultForm teams={allTeams} existingResults={existingGroupResults} />
         </div>
       </section>
@@ -163,21 +163,21 @@ export default async function AdminPage() {
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
           Enter Match Results
         </h2>
-        <p className="text-slate-400 text-sm mb-4">
+        <p className="text-blue-200/60 text-sm mb-4">
           {openPhaseWithMatches
             ? `Showing matches for the open phase: ${PHASE_LABELS[openPhaseWithMatches.type] ?? openPhaseWithMatches.type}`
             : "Open a knockout phase to enter results here."}
         </p>
-        <div className="bg-slate-800 rounded-2xl border border-slate-700 p-5">
+        <div className="bg-[#0c1630] rounded-2xl border border-blue-900/40 p-5">
           <AdminResultForm matches={matchesForResults} />
         </div>
       </section>
 
       {/* ── Special Picks Scoring ── */}
-      <section className="bg-slate-800/50 rounded-2xl border border-slate-700 p-6 space-y-4">
+      <section className="bg-[#0c1630]/80 rounded-2xl border border-blue-900/40 p-6 space-y-4">
         <div>
           <h2 className="text-lg font-bold text-white">⭐ Apuestas Especiales — Puntuación</h2>
-          <p className="text-slate-400 text-sm mt-1">
+          <p className="text-blue-200/60 text-sm mt-1">
             Marca qué jugadores acertaron el máximo goleador y selecciona el equipo más goleador real.
           </p>
         </div>
@@ -185,10 +185,10 @@ export default async function AdminPage() {
       </section>
 
       {/* Countries Fight */}
-      <section className="bg-slate-800/50 rounded-2xl border border-slate-700 p-6 space-y-4">
+      <section className="bg-[#0c1630]/80 rounded-2xl border border-blue-900/40 p-6 space-y-4">
         <div>
           <h2 className="text-lg font-bold text-white">⚔️ Countries Fight</h2>
-          <p className="text-slate-400 text-sm mt-1">Create matchup bets — users pick the winner, +10 pts if correct</p>
+          <p className="text-blue-200/60 text-sm mt-1">Create matchup bets — users pick the winner, +10 pts if correct</p>
         </div>
         <AdminCountriesFight fights={countriesFights} />
       </section>

@@ -37,9 +37,9 @@ function calcPotential(changes: number): number {
 
 function PointsBadge({ points, label }: { points: number; label: string }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-xl bg-slate-700/50 border border-slate-600 px-5 py-3 min-w-[80px]">
+    <div className="flex flex-col items-center justify-center rounded-xl bg-[#0f1e3d]/60 border border-blue-800/40 px-5 py-3 min-w-[80px]">
       <span className="text-2xl font-black text-emerald-400">{points}</span>
-      <span className="text-xs text-slate-400 mt-0.5 text-center">{label}</span>
+      <span className="text-xs text-blue-200/60 mt-0.5 text-center">{label}</span>
     </div>
   );
 }
@@ -85,13 +85,13 @@ function ChangeModal({
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
       onClick={(e) => e.target === e.currentTarget && onCancel()}
     >
-      <div className="w-full max-w-md rounded-2xl bg-slate-800 border border-slate-700 shadow-2xl overflow-hidden">
+      <div className="w-full max-w-md rounded-2xl bg-[#0c1630] border border-blue-900/40 shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-5 border-b border-slate-700">
+        <div className="px-6 py-5 border-b border-blue-900/40">
           <h2 className="text-lg font-bold text-white">
             {isFirstPick ? "Make Your Golden Pick" : "Change Your Golden Pick"}
           </h2>
-          <p className="text-slate-400 text-sm mt-1">
+          <p className="text-blue-200/60 text-sm mt-1">
             {isFirstPick
               ? "Choose the team you think will win the World Cup 2026."
               : "Select a new team to champion."}
@@ -123,10 +123,10 @@ function ChangeModal({
                     <strong>{PENALTY} points</strong>:
                   </p>
                   <div className="flex items-center gap-2 mt-2">
-                    <span className="text-sm font-bold text-white bg-slate-700 px-2 py-0.5 rounded">
+                    <span className="text-sm font-bold text-white bg-[#0f1e3d] px-2 py-0.5 rounded">
                       {currentPotential} pts
                     </span>
-                    <svg className="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-blue-300/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
                     <span
@@ -146,7 +146,7 @@ function ChangeModal({
 
           {/* Team selector */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300">Select team</label>
+            <label className="text-sm font-medium text-slate-200">Select team</label>
             <div className="relative">
               {selectedTeam && (
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xl leading-none pointer-events-none">
@@ -156,7 +156,7 @@ function ChangeModal({
               <select
                 value={selectedId}
                 onChange={(e) => setSelectedId(e.target.value)}
-                className={`w-full appearance-none rounded-xl border border-slate-600 bg-slate-700 text-white text-sm py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors ${
+                className={`w-full appearance-none rounded-xl border border-blue-800/40 bg-[#0f1e3d] text-white text-sm py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors ${
                   selectedTeam ? "pl-10" : "pl-4"
                 }`}
               >
@@ -174,7 +174,7 @@ function ChangeModal({
                 ))}
               </select>
               <svg
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none"
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-200/60 pointer-events-none"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -191,18 +191,18 @@ function ChangeModal({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-slate-700 flex gap-3">
+        <div className="px-6 py-4 border-t border-blue-900/40 flex gap-3">
           <button
             onClick={onCancel}
             disabled={loading}
-            className="flex-1 py-2.5 rounded-xl border border-slate-600 text-slate-300 text-sm font-medium hover:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500"
+            className="flex-1 py-2.5 rounded-xl border border-blue-800/40 text-slate-200 text-sm font-medium hover:bg-[#0f1e3d] transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500"
           >
             Cancel
           </button>
           <button
             onClick={() => selectedId && onConfirm(selectedId)}
             disabled={loading || !selectedId || isSameTeam === true}
-            className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-700 disabled:text-slate-500 text-white text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:bg-[#0f1e3d] disabled:text-blue-300/50 text-white text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -268,14 +268,14 @@ export function GoldenPickCard({ goldenPick: initialPick, allTeams }: GoldenPick
     <>
       {/* ─── No pick yet ────────────────────────────────────── */}
       {!goldenPick && (
-        <div className="rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden">
+        <div className="rounded-2xl bg-[#0c1630] border border-blue-900/40 overflow-hidden">
           <div className="px-6 py-8 text-center space-y-4">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto">
+            <div className="w-16 h-16 rounded-full bg-red-600/8 border border-emerald-500/20 flex items-center justify-center mx-auto">
               <span className="text-3xl">🏆</span>
             </div>
             <div>
               <h2 className="text-lg font-bold text-white">No Golden Pick yet</h2>
-              <p className="text-slate-400 text-sm mt-1">
+              <p className="text-blue-200/60 text-sm mt-1">
                 Pick a team to win the World Cup. Your first pick is free — worth up to{" "}
                 <span className="text-emerald-400 font-semibold">{MAX_POINTS} points</span>.
               </p>
@@ -295,19 +295,19 @@ export function GoldenPickCard({ goldenPick: initialPick, allTeams }: GoldenPick
 
       {/* ─── Existing pick ───────────────────────────────────── */}
       {goldenPick && (
-        <div className="rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden">
+        <div className="rounded-2xl bg-[#0c1630] border border-blue-900/40 overflow-hidden">
           {/* Team banner */}
-          <div className="px-6 py-6 border-b border-slate-700">
+          <div className="px-6 py-6 border-b border-blue-900/40">
             <div className="flex items-center gap-4">
               <span className="text-5xl leading-none">{goldenPick.team.flagEmoji ?? "🏳️"}</span>
               <div className="flex-1 min-w-0">
-                <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold mb-1">
+                <p className="text-xs text-blue-200/60 uppercase tracking-widest font-semibold mb-1">
                   Your Golden Pick
                 </p>
                 <h2 className="text-2xl font-black text-white truncate">{goldenPick.team.name}</h2>
-                <p className="text-slate-400 text-sm mt-0.5">
+                <p className="text-blue-200/60 text-sm mt-0.5">
                   Group {goldenPick.team.group} ·{" "}
-                  <span className="font-mono text-slate-300">{goldenPick.team.shortCode}</span>
+                  <span className="font-mono text-slate-200">{goldenPick.team.shortCode}</span>
                 </p>
               </div>
               {/* Result badge */}
@@ -315,7 +315,7 @@ export function GoldenPickCard({ goldenPick: initialPick, allTeams }: GoldenPick
                 <span
                   className={`shrink-0 text-xs font-bold px-3 py-1.5 rounded-full ${
                     goldenPick.isCorrect
-                      ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                      ? "bg-blue-500/20 text-blue-400 border border-emerald-500/30"
                       : "bg-red-500/20 text-red-400 border border-red-500/30"
                   }`}
                 >
@@ -326,16 +326,16 @@ export function GoldenPickCard({ goldenPick: initialPick, allTeams }: GoldenPick
           </div>
 
           {/* Stats row */}
-          <div className="px-6 py-4 flex gap-3 border-b border-slate-700">
+          <div className="px-6 py-4 flex gap-3 border-b border-blue-900/40">
             <PointsBadge points={potential} label="Potential pts" />
             {goldenPick.pointsEarned != null && (
               <PointsBadge points={goldenPick.pointsEarned} label="Points earned" />
             )}
             <div className="flex flex-col justify-center ml-2">
-              <p className="text-xs text-slate-400 mb-1">Changes made</p>
+              <p className="text-xs text-blue-200/60 mb-1">Changes made</p>
               <div className="flex items-center gap-1">
                 {changes === 0 ? (
-                  <span className="text-slate-300 text-sm font-semibold">None (free first pick)</span>
+                  <span className="text-slate-200 text-sm font-semibold">None (free first pick)</span>
                 ) : (
                   <>
                     {Array.from({ length: Math.min(changes, 5) }).map((_, i) => (
@@ -347,7 +347,7 @@ export function GoldenPickCard({ goldenPick: initialPick, allTeams }: GoldenPick
                     {changes > 5 && (
                       <span className="text-xs text-amber-400 ml-1">+{changes - 5}</span>
                     )}
-                    <span className="text-xs text-slate-400 ml-1.5">
+                    <span className="text-xs text-blue-200/60 ml-1.5">
                       {changes} {changes === 1 ? "change" : "changes"}
                     </span>
                   </>
@@ -358,8 +358,8 @@ export function GoldenPickCard({ goldenPick: initialPick, allTeams }: GoldenPick
 
           {/* Points breakdown */}
           {changes > 0 && (
-            <div className="px-6 py-3 bg-slate-700/20 border-b border-slate-700">
-              <div className="flex items-center justify-between text-xs text-slate-400">
+            <div className="px-6 py-3 bg-[#0f1e3d]/20 border-b border-blue-900/40">
+              <div className="flex items-center justify-between text-xs text-blue-200/60">
                 <span>Max points ({MAX_POINTS}) − {changes} change{changes !== 1 ? "s" : ""} × {PENALTY} pts each</span>
                 <span className="font-semibold text-slate-200">= {potential} pts max</span>
               </div>
@@ -368,7 +368,7 @@ export function GoldenPickCard({ goldenPick: initialPick, allTeams }: GoldenPick
 
           {/* Change pick button */}
           <div className="px-6 py-4 flex items-center justify-between">
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-blue-300/50">
               {changes === 0
                 ? "First change: −10 pts potential"
                 : `Next change: ${potential} → ${calcPotential(changes + 1)} pts`}
@@ -376,7 +376,7 @@ export function GoldenPickCard({ goldenPick: initialPick, allTeams }: GoldenPick
             <button
               onClick={() => setShowModal(true)}
               disabled={potential === 0}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-600 text-slate-300 text-sm font-medium hover:bg-slate-700 hover:border-slate-500 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-blue-800/40 text-slate-200 text-sm font-medium hover:bg-[#0f1e3d] hover:border-slate-500 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path

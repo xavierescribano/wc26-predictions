@@ -106,7 +106,7 @@ function RegisterForm() {
   if (loadingInvite) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3 text-slate-400">
+        <div className="flex flex-col items-center gap-3 text-blue-200/60">
           <svg className="animate-spin h-8 w-8 text-green-500" viewBox="0 0 24 24" fill="none">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
@@ -125,11 +125,11 @@ function RegisterForm() {
             <div className="text-6xl mb-4 select-none">🚫</div>
             <h1 className="text-2xl font-bold text-white">Invalid Invite</h1>
           </div>
-          <div className="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl p-8 text-center">
+          <div className="bg-[#0c1630] border border-blue-900/40 rounded-2xl shadow-2xl p-8 text-center">
             <div className="bg-red-950/60 border border-red-800 text-red-300 rounded-lg px-4 py-4 mb-6 text-sm">
               {tokenError}
             </div>
-            <p className="text-slate-400 text-sm mb-4">
+            <p className="text-blue-200/60 text-sm mb-4">
               Invites are required to join the prediction league. Please contact the league admin for access.
             </p>
             <Link href="/login" className="btn-secondary inline-block text-sm">
@@ -155,7 +155,7 @@ function RegisterForm() {
           <h1 className="text-3xl font-bold text-white tracking-tight">
             Join WC26 Predictions
           </h1>
-          <p className="mt-2 text-slate-400 text-sm">
+          <p className="mt-2 text-blue-200/60 text-sm">
             Complete your registration to join the league
           </p>
         </div>
@@ -171,7 +171,7 @@ function RegisterForm() {
         )}
 
         {/* Card */}
-        <div className="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl p-8">
+        <div className="bg-[#0c1630] border border-blue-900/40 rounded-2xl shadow-2xl p-8">
           <h2 className="text-xl font-semibold text-white mb-6">
             Create your account
           </h2>
@@ -208,7 +208,7 @@ function RegisterForm() {
                 className={`input-wc26 ${invite ? "opacity-60 cursor-not-allowed" : ""}`}
               />
               {invite && (
-                <p className="mt-1 text-xs text-slate-500">
+                <p className="mt-1 text-xs text-blue-300/50">
                   Email is pre-filled from your invite and cannot be changed.
                 </p>
               )}
@@ -274,7 +274,7 @@ function RegisterForm() {
           </form>
         </div>
 
-        <p className="mt-6 text-center text-sm text-slate-500">
+        <p className="mt-6 text-center text-sm text-blue-300/50">
           Already have an account?{" "}
           <Link href="/login" className="text-green-400 hover:text-green-300 font-medium transition-colors">
             Sign in

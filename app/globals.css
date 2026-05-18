@@ -2,36 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Light mode (default) ───────────────────────────────────────── */
+/* ── USA 2026 Theme ─────────────────────────────────────────────── */
 :root {
-  --background: #f1f5f9;
-  --foreground: #0f172a;
-  --nav-bg: #ffffff;
-  --nav-border: #e2e8f0;
-  --card-bg: #ffffff;
-  --card-border: #e2e8f0;
-  --card-inner: #f8fafc;
-  --muted: #64748b;
-  --accent-green: #16a34a;
+  --background:   #f1f5f9;
+  --foreground:   #0f172a;
+  --nav-bg:       #ffffff;
+  --nav-border:   #e2e8f0;
+  --card-bg:      #ffffff;
+  --card-border:  #e2e8f0;
+  --card-inner:   #f8fafc;
+  --muted:        #64748b;
+  --accent:       #1d4ed8;
 }
 
-/* ── Dark mode ───────────────────────────────────────────────────── */
 .dark {
-  --background: #0f172a;
-  --foreground: #f8fafc;
-  --nav-bg: #1e293b;
-  --nav-border: #334155;
-  --card-bg: #1e293b;
-  --card-border: #334155;
-  --card-inner: #0f172a;
-  --muted: #64748b;
-  --accent-green: #22c55e;
+  --background:   #080e1f;
+  --foreground:   #f1f5f9;
+  --nav-bg:       rgba(8, 14, 31, 0.90);
+  --nav-border:   rgba(29, 78, 216, 0.22);
+  --card-bg:      #0c1630;
+  --card-border:  rgba(29, 78, 216, 0.22);
+  --card-inner:   #080e1f;
+  --muted:        rgba(147, 197, 253, 0.55);
+  --accent:       #3b82f6;
 }
 
+/* ── Base ──────────────────────────────────────────────────────── */
 body {
   color: var(--foreground);
   background: var(--background);
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Dark mode: animated ambient background */
+.dark body,
+.dark #__next,
+.dark main {
+  background: var(--background);
+}
+
+/* ── Ambient glow behind the whole page ── */
+.dark .page-glow {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 45% at 15% -5%,  rgba(29,78,216,0.12)  0%, transparent 60%),
+    radial-gradient(ellipse 50% 35% at 85% 100%, rgba(220,38,38,0.08)   0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50%  55%, rgba(22,163,74,0.04)   0%, transparent 50%);
+}
+
+/* ── Top stripe: USA / CAN / MEX ── */
+.dark .top-stripe {
+  height: 3px;
+  background: linear-gradient(90deg,
+    #dc2626 0%,   #dc2626 33%,
+    #ffffff22 33%, #ffffff22 66%,
+    #1d4ed8 66%,  #1d4ed8 82%,
+    #16a34a 82%,  #16a34a 100%
+  );
 }
 
 @layer utilities {
@@ -45,58 +72,41 @@ body {
   }
 
   .btn-primary {
-    @apply bg-green-600 hover:bg-green-500 active:bg-green-700 text-white font-semibold
+    @apply bg-blue-700 hover:bg-blue-600 active:bg-blue-800 text-white font-semibold
            rounded-lg px-4 py-2 transition-colors duration-150 focus:outline-none
-           focus:ring-2 focus:ring-green-500 focus:ring-offset-2
+           focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
            disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .input-wc26 {
     @apply w-full rounded-lg px-3 py-2.5 text-sm
-           focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent
+           focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent
            transition-colors duration-150
-           bg-slate-100 dark:bg-slate-800
-           border border-slate-300 dark:border-slate-600
+           bg-slate-100 dark:bg-[#080e1f]
+           border border-slate-300 dark:border-blue-900/40
            text-slate-900 dark:text-white
-           placeholder-slate-400;
+           placeholder-blue-300/40;
+  }
+
+  .label-wc26 {
+    @apply block text-sm font-medium text-slate-700 dark:text-blue-200/70 mb-1.5;
   }
 
   .nav-link {
     @apply px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
-           text-slate-600 dark:text-slate-300
-           hover:text-green-600 dark:hover:text-green-400;
+           text-slate-600 dark:text-blue-200/60
+           hover:text-blue-600 dark:hover:text-blue-300;
   }
 
   .nav-link-active {
     @apply px-3 py-2 rounded-md text-sm font-medium
-           text-green-600 dark:text-green-400
-           bg-green-50 dark:bg-slate-700;
+           text-blue-600 dark:text-blue-400
+           bg-blue-50 dark:bg-blue-900/30
+           border border-blue-200 dark:border-blue-700/40;
   }
 }
 
-/* Pitch background pattern */
-.pitch-bg {
-  background-image: repeating-linear-gradient(
-    90deg, transparent, transparent 49px,
-    rgba(0,0,0,0.03) 49px, rgba(0,0,0,0.03) 50px
-  ),
-  repeating-linear-gradient(
-    0deg, transparent, transparent 49px,
-    rgba(0,0,0,0.03) 49px, rgba(0,0,0,0.03) 50px
-  );
-}
-
-.dark .pitch-bg {
-  background-image: repeating-linear-gradient(
-    90deg, transparent, transparent 49px,
-    rgba(255,255,255,0.03) 49px, rgba(255,255,255,0.03) 50px
-  ),
-  repeating-linear-gradient(
-    0deg, transparent, transparent 49px,
-    rgba(255,255,255,0.03) 49px, rgba(255,255,255,0.03) 50px
-  );
-}
-
+/* ── Scrollbar ──────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--card-inner); }
 ::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 3px; }

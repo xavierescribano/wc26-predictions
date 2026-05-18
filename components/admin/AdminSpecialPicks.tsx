@@ -100,14 +100,14 @@ export function AdminSpecialPicks({ teams }: { teams: Team[] }) {
     setSaving(null);
   }
 
-  if (loading) return <p className="text-slate-400 text-sm">Cargando…</p>;
+  if (loading) return <p className="text-blue-200/60 text-sm">Cargando…</p>;
 
   return (
     <div className="space-y-8">
       {msg && (
         <div className={`px-4 py-3 rounded-lg text-sm font-medium ${
           msg.type === "ok"
-            ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
+            ? "bg-red-600/8 text-emerald-400 border border-emerald-500/30"
             : "bg-red-500/10 text-red-400 border border-red-500/30"
         }`}>
           {msg.text}
@@ -119,7 +119,7 @@ export function AdminSpecialPicks({ teams }: { teams: Team[] }) {
         <div className="flex items-center justify-between mb-3">
           <div>
             <p className="text-white font-semibold">⭐ Máximo Goleador (Jugador) — 25 pts</p>
-            <p className="text-slate-400 text-xs mt-0.5">
+            <p className="text-blue-200/60 text-xs mt-0.5">
               Marca las apuestas que consideres correctas (pueden ser varias si el nombre coincide).
             </p>
           </div>
@@ -133,16 +133,16 @@ export function AdminSpecialPicks({ teams }: { teams: Team[] }) {
         </div>
 
         {playerPicks.length === 0 ? (
-          <p className="text-slate-500 text-sm italic">Ningún jugador ha registrado esta apuesta todavía.</p>
+          <p className="text-blue-300/50 text-sm italic">Ningún jugador ha registrado esta apuesta todavía.</p>
         ) : (
-          <div className="bg-slate-900 rounded-xl border border-slate-700 divide-y divide-slate-700">
+          <div className="bg-[#080e1f] rounded-xl border border-blue-900/40 divide-y divide-blue-900/30">
             {playerPicks.map((pick) => {
               const checked = correctUserIds.has(pick.userId);
               return (
                 <label
                   key={pick.id}
                   className={`flex items-center gap-4 px-4 py-3 cursor-pointer transition-colors ${
-                    checked ? "bg-emerald-500/10" : "hover:bg-slate-800"
+                    checked ? "bg-red-600/8" : "hover:bg-[#0c1630]"
                   }`}
                 >
                   <input
@@ -153,19 +153,19 @@ export function AdminSpecialPicks({ teams }: { teams: Team[] }) {
                   />
                   <div className="flex-1 min-w-0">
                     <p className="text-white font-medium truncate">{pick.user.name ?? pick.user.email}</p>
-                    <p className="text-slate-400 text-xs truncate">
+                    <p className="text-blue-200/60 text-xs truncate">
                       Apuesta: <span className="text-amber-400 font-semibold">"{pick.playerName}"</span>
                     </p>
                   </div>
                   <div className="shrink-0 text-right">
                     {pick.isCorrect === true && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold">✓ 25 pts</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 font-semibold">✓ 25 pts</span>
                     )}
                     {pick.isCorrect === false && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-slate-700 text-slate-400 font-semibold">0 pts</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-[#0f1e3d] text-blue-200/60 font-semibold">0 pts</span>
                     )}
                     {pick.isCorrect === null && (
-                      <span className="text-xs text-slate-500 italic">Sin puntuar</span>
+                      <span className="text-xs text-blue-300/50 italic">Sin puntuar</span>
                     )}
                   </div>
                 </label>
@@ -180,7 +180,7 @@ export function AdminSpecialPicks({ teams }: { teams: Team[] }) {
         <div className="flex items-center justify-between mb-3">
           <div>
             <p className="text-white font-semibold">⭐ Equipo Más Goleador — 25 pts</p>
-            <p className="text-slate-400 text-xs mt-0.5">
+            <p className="text-blue-200/60 text-xs mt-0.5">
               Selecciona el equipo que más goles marcó en el torneo. El sistema puntuará automáticamente.
             </p>
           </div>
@@ -211,35 +211,35 @@ export function AdminSpecialPicks({ teams }: { teams: Team[] }) {
 
         {/* Show who picked what */}
         {teamPicks.length > 0 && (
-          <div className="mt-4 bg-slate-900 rounded-xl border border-slate-700 divide-y divide-slate-700">
+          <div className="mt-4 bg-[#080e1f] rounded-xl border border-blue-900/40 divide-y divide-blue-900/30">
             {teamPicks.map((pick) => {
               const isWinner = pick.teamId === correctTeamId;
               return (
-                <div key={pick.id} className={`flex items-center gap-4 px-4 py-3 ${isWinner ? "bg-emerald-500/10" : ""}`}>
+                <div key={pick.id} className={`flex items-center gap-4 px-4 py-3 ${isWinner ? "bg-red-600/8" : ""}`}>
                   <div className="flex-1 min-w-0">
                     <p className="text-white font-medium truncate">{pick.user.name ?? pick.user.email}</p>
-                    <p className="text-slate-400 text-xs">
+                    <p className="text-blue-200/60 text-xs">
                       Apuesta:{" "}
-                      <span className="font-semibold text-slate-300">
+                      <span className="font-semibold text-slate-200">
                         {pick.team.flagEmoji} {pick.team.name}
                       </span>
                     </p>
                   </div>
                   <div className="shrink-0">
                     {isWinner && correctTeamId && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold">✓ 25 pts</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 font-semibold">✓ 25 pts</span>
                     )}
                     {!isWinner && correctTeamId && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-slate-700 text-slate-400">0 pts</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-[#0f1e3d] text-blue-200/60">0 pts</span>
                     )}
                     {!correctTeamId && pick.isCorrect === true && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold">✓ 25 pts</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 font-semibold">✓ 25 pts</span>
                     )}
                     {!correctTeamId && pick.isCorrect === false && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-slate-700 text-slate-400">0 pts</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-[#0f1e3d] text-blue-200/60">0 pts</span>
                     )}
                     {!correctTeamId && pick.isCorrect === null && (
-                      <span className="text-xs text-slate-500 italic">Sin puntuar</span>
+                      <span className="text-xs text-blue-300/50 italic">Sin puntuar</span>
                     )}
                   </div>
                 </div>
@@ -249,7 +249,7 @@ export function AdminSpecialPicks({ teams }: { teams: Team[] }) {
         )}
 
         {teamPicks.length === 0 && (
-          <p className="text-slate-500 text-sm italic mt-3">Ningún jugador ha registrado esta apuesta todavía.</p>
+          <p className="text-blue-300/50 text-sm italic mt-3">Ningún jugador ha registrado esta apuesta todavía.</p>
         )}
       </div>
     </div>

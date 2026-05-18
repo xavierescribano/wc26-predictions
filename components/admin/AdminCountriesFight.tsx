@@ -107,7 +107,7 @@ export function AdminCountriesFight({ fights: initial }: Props) {
 
       {/* Fights list */}
       {fights.length === 0 ? (
-        <p className="text-slate-400 text-sm text-center py-4">No fights created yet.</p>
+        <p className="text-blue-200/60 text-sm text-center py-4">No fights created yet.</p>
       ) : (
         <div className="space-y-3">
           {fights.map((fight) => {
@@ -119,7 +119,7 @@ export function AdminCountriesFight({ fights: initial }: Props) {
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="font-semibold text-slate-900 dark:text-white text-sm">{fight.title}</p>
-                    <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">
+                    <p className="text-blue-300/50 dark:text-blue-200/60 text-xs mt-0.5">
                       {fight.teamAName} vs {fight.teamBName} · {fight._count.picks} pick{fight._count.picks !== 1 ? "s" : ""}
                       {hasResult && (
                         <span className="ml-2 text-emerald-600 dark:text-emerald-400 font-semibold">
@@ -131,11 +131,11 @@ export function AdminCountriesFight({ fights: initial }: Props) {
                   <div className="flex items-center gap-2 shrink-0">
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                       fight.isOpen
-                        ? "bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-400"
-                        : "bg-slate-100 dark:bg-slate-700 text-slate-500"
+                        ? "bg-green-100 dark:bg-green-500/10 text-blue-400"
+                        : "bg-slate-100 dark:bg-[#0f1e3d] text-blue-300/50"
                     }`}>{fight.isOpen ? "Open" : "Closed"}</span>
                     <button onClick={() => handleDelete(fight.id)}
-                      className="text-slate-400 hover:text-red-500 transition-colors text-xs px-1.5 py-1 rounded hover:bg-red-50 dark:hover:bg-red-500/10">
+                      className="text-blue-200/60 hover:text-red-500 transition-colors text-xs px-1.5 py-1 rounded hover:bg-red-50 dark:hover:bg-red-500/10">
                       🗑️
                     </button>
                   </div>
@@ -149,7 +149,7 @@ export function AdminCountriesFight({ fights: initial }: Props) {
                       className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border ${
                         fight.isOpen
                           ? "bg-red-500/10 text-red-500 border-red-500/30 hover:bg-red-500/20"
-                          : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
+                          : "bg-red-600/8 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
                       }`}>
                       {fight.isOpen ? "Close betting" : "Reopen betting"}
                     </button>
@@ -158,20 +158,20 @@ export function AdminCountriesFight({ fights: initial }: Props) {
                   {/* Set exact result */}
                   {!hasResult && (
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-slate-500 dark:text-slate-400 shrink-0">Enter result:</span>
+                      <span className="text-xs text-blue-300/50 dark:text-blue-200/60 shrink-0">Enter result:</span>
                       <div className="flex items-center gap-1.5">
                         <input type="number" min="0" max="99" value={inp.a}
                           onChange={(e) => setInput(fight.id, "a", e.target.value)}
                           placeholder="0"
-                          className="w-14 text-center text-sm font-bold py-1.5 rounded-lg border bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" />
-                        <span className="text-slate-400 font-bold">–</span>
+                          className="w-14 text-center text-sm font-bold py-1.5 rounded-lg border bg-slate-50 dark:bg-[#0c1630] border-slate-200 dark:border-blue-800/40 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                        <span className="text-blue-200/60 font-bold">–</span>
                         <input type="number" min="0" max="99" value={inp.b}
                           onChange={(e) => setInput(fight.id, "b", e.target.value)}
                           placeholder="0"
-                          className="w-14 text-center text-sm font-bold py-1.5 rounded-lg border bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                          className="w-14 text-center text-sm font-bold py-1.5 rounded-lg border bg-slate-50 dark:bg-[#0c1630] border-slate-200 dark:border-blue-800/40 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" />
                         <button onClick={() => handleResult(fight.id)}
                           disabled={inp.a === "" || inp.b === ""}
-                          className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:text-slate-400 disabled:cursor-not-allowed text-white transition-colors">
+                          className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-500 disabled:bg-slate-300 dark:disabled:bg-[#0f1e3d] disabled:text-blue-200/60 disabled:cursor-not-allowed text-white transition-colors">
                           Set & score
                         </button>
                       </div>

@@ -18,7 +18,7 @@ function CopyButton({ text }: { text: string }) {
   }
   return (
     <button onClick={copy}
-      className="px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600">
+      className="px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 dark:bg-[#0f1e3d] hover:bg-slate-200 dark:hover:bg-[#162040] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-blue-800/40">
       {copied ? "✓ Copied!" : "Copy"}
     </button>
   );
@@ -96,7 +96,7 @@ export function AdminInviteForm() {
             {loading ? "Generating…" : "Generate invite link"}
           </button>
         </div>
-        <p className="text-xs text-slate-500 dark:text-slate-400">
+        <p className="text-xs text-blue-300/50 dark:text-blue-200/60">
           No email service needed — share the link via WhatsApp, Telegram, iMessage or any chat app.
         </p>
       </form>
@@ -108,7 +108,7 @@ export function AdminInviteForm() {
         <div className="rounded-xl border border-emerald-500/40 bg-emerald-50 dark:bg-emerald-900/20 p-4 space-y-3">
           <p className="text-emerald-700 dark:text-emerald-400 text-xs font-semibold uppercase tracking-wider">✅ Link ready — share it now</p>
           <div className="flex items-center gap-2">
-            <code className="flex-1 text-xs text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 break-all font-mono">
+            <code className="flex-1 text-xs text-slate-700 dark:text-slate-200 bg-white dark:bg-[#0c1630] border border-slate-200 dark:border-blue-900/40 rounded-lg px-3 py-2 break-all font-mono">
               {newInvite.inviteUrl}
             </code>
             <CopyButton text={newInvite.inviteUrl} />
@@ -120,31 +120,31 @@ export function AdminInviteForm() {
       {/* Pending invites */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-            Pending invites {!loadingPending && pending.length > 0 && <span className="text-slate-400">({pending.length})</span>}
+          <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+            Pending invites {!loadingPending && pending.length > 0 && <span className="text-blue-200/60">({pending.length})</span>}
           </p>
           {!loadingPending && pending.length > 0 && (
-            <button onClick={loadPending} className="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">Refresh</button>
+            <button onClick={loadPending} className="text-xs text-blue-200/60 hover:text-blue-300/70 dark:hover:text-slate-200 transition-colors">Refresh</button>
           )}
         </div>
 
-        {loadingPending && <p className="text-slate-400 text-xs">Loading…</p>}
+        {loadingPending && <p className="text-blue-200/60 text-xs">Loading…</p>}
 
         {!loadingPending && pending.length === 0 && (
-          <p className="text-slate-400 text-xs italic">No pending invites.</p>
+          <p className="text-blue-200/60 text-xs italic">No pending invites.</p>
         )}
 
         {!loadingPending && pending.map((inv) => (
           <div key={inv.id} className="flex items-center gap-2 p-3 rounded-xl bg-[var(--card-inner)] border border-[var(--card-border)]">
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-medium text-slate-700 dark:text-slate-300 truncate">{inv.email}</p>
-              <p className="text-[10px] text-slate-400 truncate font-mono mt-0.5">{inv.inviteUrl}</p>
+              <p className="text-xs font-medium text-slate-700 dark:text-slate-200 truncate">{inv.email}</p>
+              <p className="text-[10px] text-blue-200/60 truncate font-mono mt-0.5">{inv.inviteUrl}</p>
             </div>
             <div className="flex items-center gap-1.5 shrink-0">
               <CopyButton text={inv.inviteUrl} />
               <WhatsAppButton url={inv.inviteUrl} label={inv.email} />
               <button onClick={() => handleRevoke(inv.id)}
-                className="px-2 py-1.5 rounded-lg text-xs text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors border border-transparent hover:border-red-200 dark:hover:border-red-500/20">
+                className="px-2 py-1.5 rounded-lg text-xs text-blue-200/60 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors border border-transparent hover:border-red-200 dark:hover:border-red-500/20">
                 ✕
               </button>
             </div>
