@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { ProfileNameEdit } from "@/components/ProfileNameEdit";
 
 const PHASE_LABELS: Record<string, string> = {
   GROUP_STAGE: "Group Stage",
@@ -118,7 +119,7 @@ export default async function ProfilePage() {
             </span>
           </div>
           <div className="flex-1">
-            <h1 className="text-2xl font-bold text-white">{u.name ?? "Unnamed Player"}</h1>
+            <ProfileNameEdit initialName={(u.name ?? "Unnamed Player") as string} />
             <p className="text-blue-200/60 text-sm">{u.email}</p>
           </div>
           <div className="flex gap-6">
