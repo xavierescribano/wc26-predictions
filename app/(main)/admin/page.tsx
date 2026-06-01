@@ -82,7 +82,19 @@ export default async function AdminPage() {
           <h1 className="text-2xl sm:text-3xl font-bold text-white">Admin Panel</h1>
           <p className="text-blue-200/60 mt-1">Manage phases, invite players, enter results</p>
         </div>
-        <AdminResetButton />
+        <div className="flex items-center gap-3">
+          <a
+            href="/api/admin/export"
+            download
+            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-blue-700 hover:bg-blue-600 text-white transition-colors border border-blue-600/50"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            Exportar Excel
+          </a>
+          <AdminResetButton />
+        </div>
       </div>
 
       {/* ── Section 1: Phase Management ── */}
