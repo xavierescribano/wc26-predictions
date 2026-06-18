@@ -40,8 +40,9 @@ model User {
   goldenPick            GoldenPick?
   topScorerPlayerPick   TopScorerPlayerPick?
   topScorerTeamPick     TopScorerTeamPick?
-  countriesFightPicks   CountriesFightPick[]
-  sentInvites           Invite[]             @relation("InviteSender")
+  countriesFightPicks      CountriesFightPick[]
+  manualPointsAdjustments  ManualPointsAdjustment[]
+  sentInvites              Invite[]             @relation("InviteSender")
 }
 
 model Account {
@@ -265,4 +266,14 @@ model GoldenPick {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   team Team @relation(fields: [teamId], references: [id])
+}
+
+model ManualPointsAdjustment {
+  id        String   @id @default(cuid())
+  userId    String
+  points    Int      // positive = add, negative = subtract
+  reason    String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

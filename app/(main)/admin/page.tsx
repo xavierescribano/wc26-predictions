@@ -9,6 +9,7 @@ import { AdminResetButton } from "@/components/admin/AdminResetButton";
 import { AdminUserList } from "@/components/admin/AdminUserList";
 import { AdminCountriesFight } from "@/components/admin/AdminCountriesFight";
 import { AdminSpecialPicks } from "@/components/admin/AdminSpecialPicks";
+import { AdminManualPoints } from "@/components/admin/AdminManualPoints";
 
 const PHASE_LABELS: Record<string, string> = {
   GROUP_STAGE: "Group Stage",
@@ -194,6 +195,17 @@ export default async function AdminPage() {
           </p>
         </div>
         <AdminSpecialPicks teams={allTeams} />
+      </section>
+
+      {/* ── Manual Points ── */}
+      <section className="bg-[#0c1630]/80 rounded-2xl border border-blue-900/40 p-6 space-y-4">
+        <div>
+          <h2 className="text-lg font-bold text-white">🎯 Ajuste Manual de Puntos</h2>
+          <p className="text-blue-200/60 text-sm mt-1">
+            Añade o resta puntos a cualquier jugador. Cada ajuste queda registrado con su motivo.
+          </p>
+        </div>
+        <AdminManualPoints users={usersWithTotals.filter((u) => u.role !== "ADMIN").map((u) => ({ id: u.id, name: u.name, email: u.email }))} />
       </section>
 
       {/* Countries Fight */}

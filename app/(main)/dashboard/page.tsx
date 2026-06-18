@@ -15,7 +15,7 @@ export default async function DashboardPage() {
   const session = await getServerSession();
   if (!session?.user) redirect("/login");
 
-  const [openPhase, users] = await Promise.all([
+  const [openPhase, users, allManualAdj] = await Promise.all([
     prisma.phase.findFirst({ where: { isOpen: true }, orderBy: { order: "asc" } }),
     prisma.user.findMany({
       where: { role: "PLAYER" },
@@ -28,7 +28,14 @@ export default async function DashboardPage() {
         countriesFightPicks: { select: { pointsEarned: true } },
       },
     }),
+    prisma.manualPointsAdjustment.findMany({ select: { userId: true, points: true } }),
   ]);
+
+  // Sum manual adjustments per user
+  const manualByUser: Record<string, number> = {};
+  for (const a of allManualAdj) {
+    manualByUser[a.userId] = (manualByUser[a.userId] ?? 0) + a.points;
+  }
 
   const leaderboard = users
     .map((u) => {
@@ -38,7 +45,8 @@ export default async function DashboardPage() {
       const specialPoints  = (u.topScorerPlayerPick?.pointsEarned ?? 0)
                            + (u.topScorerTeamPick?.pointsEarned ?? 0);
       const fightPoints    = u.countriesFightPicks.reduce((s, f) => s + (f.pointsEarned ?? 0), 0);
-      const total          = groupPoints + knockoutPoints + goldenPoints + specialPoints + fightPoints;
+      const manualPoints   = manualByUser[u.id] ?? 0;
+      const total          = groupPoints + knockoutPoints + goldenPoints + specialPoints + fightPoints + manualPoints;
       return {
         id: u.id,
         name: (u.name ?? u.email) as string,
@@ -47,6 +55,7 @@ export default async function DashboardPage() {
         goldenPoints,
         specialPoints,
         fightPoints,
+        manualPoints,
         total,
         goldenPick: u.goldenPick ?? null,
       };
@@ -154,6 +163,7 @@ export default async function DashboardPage() {
                     Groups: {player.groupPoints} · KO: {player.knockoutPoints} · Golden: {player.goldenPoints}
                     {player.specialPoints > 0 && ` · Specials: ${player.specialPoints}`}
                     {player.fightPoints > 0 && ` · Fight: ${player.fightPoints}`}
+                    {player.manualPoints !== 0 && ` · Bonus: ${player.manualPoints > 0 ? "+" : ""}${player.manualPoints}`}
                   </p>
                 </div>
                 <span className="font-bold text-white shrink-0">{player.total}</span>
@@ -174,6 +184,7 @@ export default async function DashboardPage() {
                 <th className="px-4 py-3 text-right">Golden</th>
                 <th className="px-4 py-3 text-right">⭐ Specials</th>
                 <th className="px-4 py-3 text-right">⚔️ Fight</th>
+                <th className="px-4 py-3 text-right">🎯 Bonus</th>
                 <th className="px-4 py-3 text-right font-bold text-white">Total</th>
               </tr>
             </thead>
@@ -198,6 +209,9 @@ export default async function DashboardPage() {
                     <td className="px-4 py-4 text-right text-slate-200">{player.goldenPoints}</td>
                     <td className="px-4 py-4 text-right text-slate-200">{player.specialPoints}</td>
                     <td className="px-4 py-4 text-right text-slate-200">{player.fightPoints}</td>
+                    <td className={`px-4 py-4 text-right font-semibold ${player.manualPoints > 0 ? "text-emerald-400" : player.manualPoints < 0 ? "text-red-400" : "text-blue-300/30"}`}>
+                      {player.manualPoints > 0 ? `+${player.manualPoints}` : player.manualPoints === 0 ? "—" : player.manualPoints}
+                    </td>
                     <td className="px-4 py-4 text-right font-bold text-white text-base">{player.total}</td>
                   </tr>
                 );
