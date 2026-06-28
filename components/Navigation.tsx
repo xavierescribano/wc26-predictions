@@ -32,11 +32,18 @@ export function Navigation() {
   }
 
   const picksLinks = [
-    { href: "/picks/groups",        label: "🏟️ Group Stage" },
-    { href: "/picks/special",       label: "⭐ Special Picks" },
+    { href: "/picks/groups",          label: "🏟️ Fase de Grupos" },
+    { href: "/picks/special",         label: "⭐ Especiales" },
     { href: "/picks/countries-fight", label: "⚔️ Countries Fight" },
   ];
-  const isPicksActive = picksLinks.some((l) => isActive(l.href)) || isActive("/picks");
+  const knockoutLinks = [
+    { href: "/picks/round-of-32",   label: "Round of 32" },
+    { href: "/picks/round-of-16",   label: "Round of 16" },
+    { href: "/picks/quarterfinals", label: "Cuartos" },
+    { href: "/picks/semifinals",    label: "Semifinales" },
+    { href: "/picks/final",         label: "Final" },
+  ];
+  const isPicksActive = picksLinks.some((l) => isActive(l.href)) || knockoutLinks.some((l) => isActive(l.href)) || isActive("/picks");
 
   const base = "px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 border";
   const link   = `${base} border-transparent text-blue-200/60 hover:text-blue-200 hover:bg-blue-900/20 hover:border-blue-800/30`;
@@ -95,10 +102,18 @@ export function Navigation() {
                     </Link>
                   ))}
                   <div className="border-t border-blue-900/30 mt-1 pt-1">
-                    <Link href="/picks/r32" onClick={() => setPicksOpen(false)}
-                      className="block px-4 py-2.5 text-sm text-blue-200/50 hover:text-white hover:bg-blue-900/20 transition-colors">
-                      🏆 Knockout Rounds
-                    </Link>
+                    <p className="px-4 pt-2 pb-1 text-xs font-bold text-blue-300/30 uppercase tracking-widest">🏆 Knockout</p>
+                    {knockoutLinks.map((l) => (
+                      <Link key={l.href} href={l.href} onClick={() => setPicksOpen(false)}
+                        className={`block px-4 py-2 text-sm transition-colors ${
+                          isActive(l.href)
+                            ? "text-blue-300 bg-blue-900/30"
+                            : "text-blue-200/60 hover:text-white hover:bg-blue-900/20"
+                        }`}
+                      >
+                        {l.label}
+                      </Link>
+                    ))}
                   </div>
                 </div>
               )}
@@ -153,9 +168,12 @@ export function Navigation() {
                 {l.label}
               </Link>
             ))}
-            <Link href="/picks/r32" className={mobileLink} onClick={() => setMobileOpen(false)}>
-              🏆 Knockout Rounds
-            </Link>
+            <p className="px-4 pt-3 pb-1 text-xs font-bold text-blue-300/30 uppercase tracking-widest">🏆 Knockout</p>
+            {knockoutLinks.map((l) => (
+              <Link key={l.href} href={l.href} className={isActive(l.href) ? mobileActive : mobileLink} onClick={() => setMobileOpen(false)}>
+                {l.label}
+              </Link>
+            ))}
 
             {isAdmin && (
               <Link href="/admin" className={isActive("/admin") ? mobileActive : mobileLink} onClick={() => setMobileOpen(false)}>

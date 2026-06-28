@@ -10,6 +10,7 @@ import { AdminUserList } from "@/components/admin/AdminUserList";
 import { AdminCountriesFight } from "@/components/admin/AdminCountriesFight";
 import { AdminSpecialPicks } from "@/components/admin/AdminSpecialPicks";
 import { AdminManualPoints } from "@/components/admin/AdminManualPoints";
+import { AdminMatchSetup } from "@/components/admin/AdminMatchSetup";
 
 const PHASE_LABELS: Record<string, string> = {
   GROUP_STAGE: "Group Stage",
@@ -170,7 +171,18 @@ export default async function AdminPage() {
         </div>
       </section>
 
-      {/* ── Section 5: Enter Match Results ── */}
+      {/* ── Section 5: Configure Knockout Matches ── */}
+      <section className="bg-[#0c1630]/80 rounded-2xl border border-blue-900/40 p-6 space-y-4">
+        <div>
+          <h2 className="text-lg font-bold text-white">🗓️ Configurar Partidos Knockout</h2>
+          <p className="text-blue-200/60 text-sm mt-1">
+            Define qué equipos juegan en cada partido antes de abrir la fase. Selecciona la ronda y añade los emparejamientos.
+          </p>
+        </div>
+        <AdminMatchSetup teams={allTeams} />
+      </section>
+
+      {/* ── Section 6: Enter Match Results ── */}
       <section>
         <h2 className="text-lg font-semibold text-white mb-1 flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
